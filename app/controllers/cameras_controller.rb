@@ -1,10 +1,7 @@
 class CamerasController < ApplicationController
   def index
-    if params[:filter] == 'not_geolocalized'
-      @cameras = Camera.not_geolocalized.all
-    else
-      @cameras = Camera.geolocalized.all
-    end
+    opts = {:geolocalized => 'true'}.merge( params.symbolize_keys() )
+    @cameras = Camera.filter( opts )
   end
   
   def show

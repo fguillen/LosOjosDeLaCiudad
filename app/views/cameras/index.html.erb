@@ -5,11 +5,13 @@
       <div id="search_label">
         busca webcams:
       </div>
-      <div id="form_item">
-        <input type="text" class="text" id="a" value="Dirección">
-        <input type="text" class="text" id="l" value="Localidad">
-        <input type="submit" value="Buscar" class="submit">
-      </div>
+      <form action="#" onsubmit="showAddress(this.search_address.value); return false">
+        <div id="form_item">
+          <input type="text" class="text" name="search_address" id="search_address" value="Dirección">
+          <input type="text" class="text" id="l" value="Localidad" disabled="true">
+          <input type="submit" value="Buscar" class="submit">
+        </div>
+      </form>
     </div><!-- #search -->
   </div><!-- .cont -->
 </div><!-- #header -->
@@ -19,6 +21,7 @@
 
   <div id="results">      
     <div class="cont">
+      <p><%= @cameras.size %> cámaras.</p>
       <p>
         Tamaño imagen: 
         <a href="#">pequeño</a>
@@ -32,7 +35,7 @@
               <h2><%= camera.name %></h2>
               <div class="tools">
                 <a href="#" title="Arrastrar"><img src="/images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
-                <a href="#" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
+                <a href="javascript: setMapCenter(<%= camera.id %>, '<%= camera.address %>')" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
                 <a href="#" title="Cerrar cámara"><img src="/images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
               </div>
             </div>
@@ -50,7 +53,14 @@
               </div>
               <div class="slider"></div>
               <div class="info_update">
-                últ act: hace 7 minutos
+                <% if !camera.histories.empty? %>
+                  <%= camera.histories.last.date %>
+                <% else %>
+                  Ninguna imagen
+                <% end %>
+              </div>
+              <div class="admin">
+                <%= link_to 'edit', edit_camera_path( camera ) %>
               </div>
             </div>
           </div>
@@ -71,20 +81,76 @@
 
 
 <script type="text/javascript">
+  var map = null;
+  var markers = new Array();
 
-function initialize() {
-  if (GBrowserIsCompatible()) {
-    var map = new GMap2(document.getElementById("home_map"));
-    map.setCenter(new GLatLng(37.4419, -122.1419), 13);
-    map.setUIToDefault();
+  function initialize() {
+    if (GBrowserIsCompatible()) {
+      map = new GMap2(document.getElementById("home_map"));
+      <% if !@cameras.empty? && @cameras.first.is_geolocalized? %>
+        var center = 
+          new GLatLng(
+            <%= @cameras.first.lat %>, 
+            <%= @cameras.first.lng %>
+          );
+      <% else %>
+        var center = 
+          new GLatLng(
+            <%= APP_CONFIG[:default_lat] %>, 
+            <%= APP_CONFIG[:default_lng] %>
+          );
+      <% end %>
+    
+      map.setCenter(center, 13);
+    
+      <% @cameras.geolocalized.each do |camera| %>
+        var marker = 
+          new GMarker(
+            new GLatLng(
+              <%= camera.lat %>, 
+              <%= camera.lng %>
+            )
+          );
+        
+        map.addOverlay(marker);
+        
+        markers[<%= camera.id %>] = marker;
+      <% end %>
+    
+      var customUI = map.getDefaultUI();
+      // Remove MapType.G_HYBRID_MAP
+      customUI.maptypes.hybrid = false;
+      map.setUI(customUI);
+      
+      geocoder = new GClientGeocoder();
+    }
   }
-}
 
-$(document).ready(function() {
-  initialize();
-});
+  function setMapCenter( camera_id, address ){
+    map.panTo( markers[camera_id].getLatLng() );
+    $('#search_address').attr( 'value', address );
+  }
+  
+  function showAddress(address) {
+    if (geocoder) {
+      geocoder.getLatLng(
+        address,
+        function(point) {
+          if (!point) {
+            alert(address + " not found");
+          } else {
+            map.panTo(point, 13);
+          }
+        }
+      );
+    }
+  }
 
-$(window).unload( function () { GUnload(); } );
+  $(document).ready(function() {
+    initialize();
+  });
+
+  $(window).unload( function () { GUnload(); } );
 
 </script>
 

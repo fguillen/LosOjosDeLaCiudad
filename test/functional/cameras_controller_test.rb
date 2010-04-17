@@ -16,7 +16,7 @@ class CamerasControllerTest < ActionController::TestCase
     
     get(
       :index,
-      :filter => 'not_geolocalized'
+      :geolocalized => 'false'
     )
     
     assert_template 'index'
@@ -31,7 +31,7 @@ class CamerasControllerTest < ActionController::TestCase
     
     get(
       :index,
-      :filter => 'not_geolocalized',
+      :geolocalized => 'false',
       :autoactivation => 'true'
     )
     

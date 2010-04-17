@@ -17,5 +17,17 @@
   <div id="container">
     <%= yield %>
   </div>
+  
+  <div style="clear:both"></div>
+  
+  <div id="footer">
+    <ul>
+      <li><%= link_to 'Todas las cámaras geolocalizadas', cameras_path %></li>
+      <li><%= link_to 'Todas las cámaras geolocalizadas activadas automáticamente', cameras_path( :autoactivation => 'true') %></li>
+      <li><%= link_to 'Cámaras no geolocalizadas activadas automáticamente', cameras_path( :filter => 'not_geolocalized', :autoactivation => 'true' ) %></li>
+      <li><%= link_to 'Cámaras de Madrid no geolocalizadas activadas automáticamente', cameras_path( :geolocalized => 'false', :autoactivation => 'true', :city => 'Madrid' ) %></li>
+      <li><%= link_to 'Cámaras de Barcelona no geolocalizadas activadas automáticamente', cameras_path( :geolocalized => 'false', :autoactivation => 'true', :city => 'Barcelona' ) %></li>
+    </ul>
+  </div>
 </body>
 </html>
