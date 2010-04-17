@@ -1,4 +1,4 @@
-script/generate nifty_scaffold Camera lng:decimal lat:decimal name:string css_selector:string orientation:integer address:string url_container:string url_imagen:string
+script/generate nifty_scaffold Camera lng:decimal lat:decimal name:string scraping_css_selector:string orientation:integer address:string url_container:string url_imagen:string
 
 config.gem "geokit"
 config.gem "scrapi"

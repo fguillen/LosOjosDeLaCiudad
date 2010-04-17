@@ -9,8 +9,8 @@ class Camera < ActiveRecord::Base
 
   
   def check_url_image
-    return url_image  unless url_image.empty?
-    return CityEyes::ScraperProcessor.extract_image_url( url_container, css_selector )
+    return url_image  unless url_image.nil? || url_image.empty?
+    return CityEyes::ScraperProcessor.extract_image_url( scraping_url_container, scraping_css_selector )
   end
   
   

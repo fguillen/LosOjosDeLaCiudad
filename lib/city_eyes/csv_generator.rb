@@ -24,10 +24,14 @@ module CityEyes
         camera_hash[:name].gsub!( 'Ú', 'ú' )
       end
       
-      result = "name, city, addres, url_image\n"
+      result = "name, city, address, url_image\n"
       
       cameras_hashes.each do |camera_hash|
-        result << "#{camera_hash[:name]}, Madrid, #{camera_hash[:name]}, #{camera_hash[:url]}\n"
+        result << 
+          "\"#{camera_hash[:name]}\"" +
+          ",\"Madrid\"" +
+          ",\"#{camera_hash[:name]}\"" +
+          ",\"#{camera_hash[:url]}\"\n"
       end
       
       file_path = "#{RAILS_ROOT}/#{APP_CONFIG[:db_cameras_path]}#{APP_CONFIG[:db_cameras_mad]}"
@@ -54,12 +58,12 @@ module CityEyes
         camera_bcn_details = CityEyes::ScraperProcessor.extract_camera_bcn_details( url )
         
         result <<
-          "#{HTMLEntities.new.decode( camera_bcn_details[:name] ).strip}" +
-          ", Barcelona" +
-          ", #{HTMLEntities.new.decode( camera_bcn_details[:address] ).strip}" +
-          ", #{url}" +
-          ", #fotografia_camera > img" +
-          ", #{HTMLEntities.new.decode( camera_bcn_details[:notes] ).strip}\n"
+          "\"#{HTMLEntities.new.decode( camera_bcn_details[:name] ).strip}\"" +
+          ",\"Barcelona\"" +
+          ",\"#{HTMLEntities.new.decode( camera_bcn_details[:address] ).strip}\"" +
+          ",\"#{url}\"" +
+          ",\"#fotografia_camera > img\"" +
+          ",\"#{HTMLEntities.new.decode( camera_bcn_details[:notes] ).strip}\"\n"
       end
       
       file_path = "#{RAILS_ROOT}/#{APP_CONFIG[:db_cameras_path]}#{APP_CONFIG[:db_cameras_bcn]}"
@@ -73,6 +77,11 @@ module CityEyes
       puts "CSV Generator: db generated: #{file_path}"
       
       return file_path
+    end
+    
+    def self.csv_all
+      CityEyes::CSVGenerator.csv_cameras_mad
+      CityEyes::CSVGenerator.csv_cameras_bcn
     end
   end
 end

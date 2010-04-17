@@ -1,5 +1,5 @@
 name, city, address, scraping_url_container, scraping_css_selector, notes
-Plaça Catalunya, Barcelona, Plaça Catalunya, http://www.transit.bcn.es/transit/ca/cameres_pagina_1.html, #fotografia_camera > img, Orientació:Pça. Catalunya - Pelai
-Plaça Urquinaona, Barcelona, Plaça Urquinaona, http://www.transit.bcn.es/transit/ca/cameres_pagina_2.html, #fotografia_camera > img, Orientació:Via Laietana (Mar)
-Aragó - Passeig de Gràcia, Barcelona, Aragó - Passeig de Gràcia, http://www.transit.bcn.es/transit/ca/cameres_pagina_3.html, #fotografia_camera > img, Orientació:Aragó, sentit Llobregat
-Diagonal - Mª. Cristina, Barcelona, Diagonal - Mª. Cristina, http://www.transit.bcn.es/transit/ca/cameres_pagina_4.html, #fotografia_camera > img, Orientació:Diagonal, sentit Llobregat
+"Plaça Catalunya","Barcelona","Plaça Catalunya","http://www.transit.bcn.es/transit/ca/cameres_pagina_1.html","#fotografia_camera > img","Orientació:Pça. Catalunya - Pelai"
+"Plaça Urquinaona","Barcelona","Plaça Urquinaona","http://www.transit.bcn.es/transit/ca/cameres_pagina_2.html","#fotografia_camera > img","Orientació:Via Laietana (Mar)"
+"Aragó - Passeig de Gràcia","Barcelona","Aragó - Passeig de Gràcia","http://www.transit.bcn.es/transit/ca/cameres_pagina_3.html","#fotografia_camera > img","Orientació:Aragó, sentit Llobregat"
+"Diagonal - Mª. Cristina","Barcelona","Diagonal - Mª. Cristina","http://www.transit.bcn.es/transit/ca/cameres_pagina_4.html","#fotografia_camera > img","Orientació:Diagonal, sentit Llobregat"
