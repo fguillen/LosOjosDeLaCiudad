@@ -1,3 +1,133 @@
+<div id="header">    
+  <div class="cont">
+    <a href="" id="logo">Los Ojos de La Ciudad</a>
+    <div id="search">
+      <div id="search_label">
+        centrar mapa:
+      </div>
+      <div id="form_item">
+        <input type="text" class="text" id="a" value="Dirección">
+        <input type="text" class="text" id="l" value="Localidad">
+        <input type="submit" value="Buscar" class="submit">
+      </div>
+    </div><!-- #search -->
+  </div><!-- .cont -->
+</div><!-- #header -->
+
+<div id="content_home">
+  <div id="home_map"></div>
+
+  <div id="results">      
+    <div class="cont">
+      
+        <div class="webcam wcs_small">
+          <div class="header">
+            <h2><%= @camera.name %></h2>
+            <div class="tools">
+              <a href="#" title="Arrastrar"><img src="/images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
+              <a href="#" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
+              <a href="#" title="Cerrar cámara"><img src="/images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
+            </div>
+          </div>
+          <div class="image">
+            <%= image_tag camera.histories.last.image.url(:small) %>
+          </div>
+          <div class="controls">
+            <div class="play">
+          
+              <a href="#" id="pause_cam_ID"><img src="/images/ico_pause.png" width="12" height="17" alt="Reproducir"></a>
+            </div>
+            <div class="slider"></div>
+            <div class="info_update">
+              últ act: hace 7 minutos
+            </div>
+          </div>
+        </div>
+      
+        <div class="webcam wcs_medium">
+          <div class="header">
+            <h2><%= @camera.name %></h2>
+            <div class="tools">
+              <a href="#" title="Arrastrar"><img src="/images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
+              <a href="#" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
+              <a href="#" title="Cerrar cámara"><img src="/images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
+            </div>
+          </div>
+          <div class="image">
+            <%= image_tag camera.histories.last.image.url(:medium) %>
+          </div>
+          <div class="controls">
+            <div class="play">
+            
+              <a href="#" id="pause_cam_ID"><img src="/images/ico_pause.png" width="12" height="17" alt="Reproducir"></a>
+            </div>
+            <div class="slider"></div>
+            <div class="info_update">
+              últ act: hace 7 minutos
+            </div>
+          </div>
+        </div>
+        
+        <div class="webcam wcs_large">
+          <div class="header">
+            <h2><%= @camera.name %></h2>
+            <div class="tools">
+              <a href="#" title="Arrastrar"><img src="/images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
+              <a href="#" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
+              <a href="#" title="Cerrar cámara"><img src="/images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
+            </div>
+          </div>
+          <div class="image">
+            <%= image_tag camera.histories.last.image.url(:large) %>
+          </div>
+          <div class="controls">
+            <div class="play">
+            
+              <a href="#" id="pause_cam_ID"><img src="/images/ico_pause.png" width="12" height="17" alt="Reproducir"></a>
+            </div>
+            <div class="slider"></div>
+            <div class="info_update">
+              últ act: hace 7 minutos
+            </div>
+          </div>
+        </div>
+      
+
+        
+      
+    </div><!-- .cont -->
+  </div><!-- #results -->
+  
+</div><!-- #content -->
+
+<script 
+  src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= APP_CONFIG[:google_api_key] %>"
+  type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+function initialize() {
+  if (GBrowserIsCompatible()) {
+    var map = new GMap2(document.getElementById("home_map"));
+    map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+    map.setUIToDefault();
+  }
+}
+
+$(document).ready(function() {
+  initialize();
+});
+
+$(window).unload( function () { GUnload(); } );
+
+</script>
+
+
+
+
+
+
 <% title "Camera" %>
 
 <p>

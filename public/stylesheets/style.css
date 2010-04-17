@@ -26,7 +26,7 @@ body { margin: 0; padding: 0; font: 82.5% Arial;}
 #home_sidebar #sidebar_instructions ul li { padding: 0;}
 #home_sidebar #sidebar_instructions p { margin: 0 ;}
 
-#search_header { background: url('../imag/back_header.jpg');}
+#search_header { background: url('/images/back_header.jpg');}
 #search_header .search_box { background: #666666; width: 250px; font: .85em Tahoma; color: #FFF;}
 #search_header .search_box .cont { padding: 1em; }
 

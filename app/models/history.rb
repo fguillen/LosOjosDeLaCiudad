@@ -4,12 +4,17 @@ class History < ActiveRecord::Base
   has_attached_file(
     :image, 
     :styles => { 
-      :small =>     ["150x110",   :png], 
-      :medium =>    ["240x176",   :png],
-      :large =>     ["320x240",   :png] 
+      :small =>     ["150x110",   :jpg], 
+      :medium =>    ["240x176",   :jpg],
+      :large =>     ["320x240",   :jpg] 
     },
-    :path => ":rails_root/public/paperclip/cameras/:id/:style/:basename.:extension",
-    :url => "/paperclip/cameras/:id/:style/:basename.:extension"
+    :convert_options => { 
+      :small =>   '-quality 60',
+      :medium =>  '-quality 60',
+      :large =>   '-quality 60',
+    },
+    :path => ":rails_root/public/paperclip/cameras/:camera_id/histories/:id/:style/:basename.:extension",
+    :url => "/paperclip/cameras/:camera_id/histories/:id/:style/:basename.:extension"
   )
   
 end

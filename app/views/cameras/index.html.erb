@@ -1,41 +1,87 @@
-<% title "Cameras" %>
+<div id="header">    
+  <div class="cont">
+    <a href="" id="logo">Los Ojos de La Ciudad</a>
+    <div id="search">
+      <div id="search_label">
+        busca webcams:
+      </div>
+      <div id="form_item">
+        <input type="text" class="text" id="a" value="Dirección">
+        <input type="text" class="text" id="l" value="Localidad">
+        <input type="submit" value="Buscar" class="submit">
+      </div>
+    </div><!-- #search -->
+  </div><!-- .cont -->
+</div><!-- #header -->
 
-<table>
-  <tr>
-    <th>Lng</th>
-    <th>Lat</th>
-    <th>Name</th>
-    <th>Css Selector</th>
-    <th>Orientation</th>
-    <th>Address</th>
-    <th>Url Container</th>
-    <th>Url image</th>
-  </tr>
-  <% for camera in @cameras %>
-    <tr>
-      <td><%=h camera.lng %></td>
-      <td><%=h camera.lat %></td>
-      <td><%=h camera.name %></td>
-      <td><%=h camera.scraping_css_selector %></td>
-      <td><%=h camera.orientation %></td>
-      <td><%=h camera.address %></td>
-      <td><%=h camera.scraping_url_container %></td>
-      <td><%=h camera.url_image %></td>
-      <td><%= link_to "Show", camera %></td>
-      <td><%= link_to "Edit", edit_camera_path(camera) %></td>
-      <td><%= link_to "Destroy", camera, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-    
-    <div class="history">
-      <ul>
-        <% camera.histories.each do |history| %>
-        <li>
-          <%= image_tag history.image.url %>
-        </li>
-        <% end  %>
-      </ul>
-    </div>
-  <% end %>
-</table>
+<div id="content_home">
+  <div id="home_map"></div>
 
-<p><%= link_to "New Camera", new_camera_path %></p>
+  <div id="results">      
+    <div class="cont">
+      <p>
+        Tamaño imagen: 
+        <a href="#">pequeño</a>
+        <a href="#">mediano</a>
+        <a href="#">grande</a>
+      </p>
+      
+      <% @cameras[0..10].each do |camera| %>
+        <div class="webcam wcs_medium">
+          <div class="header">
+            <h2><%= camera.name %></h2>
+            <div class="tools">
+              <a href="#" title="Arrastrar"><img src="/images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
+              <a href="#" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
+              <a href="#" title="Cerrar cámara"><img src="/images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
+            </div>
+          </div>
+          <div class="image">
+            <%= image_tag camera.histories.last.image.url(:medium) %>
+          </div>
+          <div class="controls">
+            <div class="play">
+            
+              <a href="#" id="pause_cam_ID"><img src="/images/ico_pause.png" width="12" height="17" alt="Reproducir"></a>
+            </div>
+            <div class="slider"></div>
+            <div class="info_update">
+              últ act: hace 7 minutos
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+
+        
+      
+    </div><!-- .cont -->
+  </div><!-- #results -->
+  
+</div><!-- #content -->
+
+<script 
+  src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= APP_CONFIG[:google_api_key] %>"
+  type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+function initialize() {
+  if (GBrowserIsCompatible()) {
+    var map = new GMap2(document.getElementById("home_map"));
+    map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+    map.setUIToDefault();
+  }
+}
+
+$(document).ready(function() {
+  initialize();
+});
+
+$(window).unload( function () { GUnload(); } );
+
+</script>
+
+
+
