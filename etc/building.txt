@@ -1,0 +1,20 @@
+script/generate nifty_scaffold Camera lng:decimal lat:decimal name:string css_selector:string orientation:integer address:string url_container:string url_imagen:string
+
+config.gem "geokit"
+config.gem "scrapi"
+config.gem "factory_girl", :source => "http://gemcutter.org"
+config.gem 'paperclip', :source => 'http://gemcutter.org'
+  
+  
+http://github.com/andre/geokit-rails
+
+acts_as_mappable :default_units => :miles, 
+                 :default_formula => :sphere, 
+                 :distance_field_name => :distance,
+                 :lat_column_name => :lat,
+                 :lng_column_name => :lng
+
+
+
+script/generate model History date:datetime camera_id:integer
+

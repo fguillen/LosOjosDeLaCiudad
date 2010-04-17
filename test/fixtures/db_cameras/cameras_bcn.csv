@@ -1,0 +1,28 @@
+name, city, address, scraping_url_container, scraping_css_selector, notes
+Plaça Catalunya, Barcelona, Plaça Catalunya, http://www.transit.bcn.es/transit/ca/cameres_pagina_1.html, #fotografia_camera > img, Orientació:Pça. Catalunya - Pelai
+Plaça Urquinaona, Barcelona, Plaça Urquinaona, http://www.transit.bcn.es/transit/ca/cameres_pagina_2.html, #fotografia_camera > img, Orientació:Via Laietana (Mar)
+Aragó - Passeig de Gràcia, Barcelona, Aragó - Passeig de Gràcia, http://www.transit.bcn.es/transit/ca/cameres_pagina_3.html, #fotografia_camera > img, Orientació:Aragó, sentit Llobregat
+Diagonal - Mª. Cristina, Barcelona, Diagonal - Mª. Cristina, http://www.transit.bcn.es/transit/ca/cameres_pagina_4.html, #fotografia_camera > img, Orientació:Diagonal, sentit Llobregat
+Balmes - Mitre, Barcelona, Balmes - Mitre, http://www.transit.bcn.es/transit/ca/cameres_pagina_5.html, #fotografia_camera > img, Orientació:Mitre, sentit Besòs
+Meridiana - Rio de Janeiro, Barcelona, Meridiana - Rio de Janeiro, http://www.transit.bcn.es/transit/ca/cameres_pagina_6.html, #fotografia_camera > img, Orientació:Meridiana, sentit Glòries
+Pl. Molina, Barcelona, Pl. Molina, http://www.transit.bcn.es/transit/ca/cameres_pagina_7.html, #fotografia_camera > img, Orientació:Balmes, sentit Mar
+Balmes - Gran Via, Barcelona, Balmes - Gran Via, http://www.transit.bcn.es/transit/ca/cameres_pagina_8.html, #fotografia_camera > img, Orientació:Balmes, sentit muntanya
+Gran Via - Marina, Barcelona, Gran Via - Marina, http://www.transit.bcn.es/transit/ca/cameres_pagina_9.html, #fotografia_camera > img, Orientació:Gran Via, sentit Besòs
+Gran Via - Bac de Roda, Barcelona, Gran Via - Bac de Roda, http://www.transit.bcn.es/transit/ca/cameres_pagina_10.html, #fotografia_camera > img, Orientació:Gran Via, sentit Glòries
+Marina - Pujades, Barcelona, Marina - Pujades, http://www.transit.bcn.es/transit/ca/cameres_pagina_11.html, #fotografia_camera > img, Orientació:Marina mar
+Diagonal - Ciutat de Granada, Barcelona, Diagonal - Ciutat de Granada, http://www.transit.bcn.es/transit/ca/cameres_pagina_12.html, #fotografia_camera > img, Orientació:Diagonal (Besòs)
+Túnel Rovira, Barcelona, Túnel Rovira, http://www.transit.bcn.es/transit/ca/cameres_pagina_13.html, #fotografia_camera > img, Orientació:Boca Nord
+Plaça Països Catalans, Barcelona, Plaça Països Catalans, http://www.transit.bcn.es/transit/ca/cameres_pagina_14.html, #fotografia_camera > img, Orientació:Tarragona (Mar)
+Plaça Espanya, Barcelona, Plaça Espanya, http://www.transit.bcn.es/transit/ca/cameres_pagina_15.html, #fotografia_camera > img, Orientació:Paral.lel
+Plaça Cerdà, Barcelona, Plaça Cerdà, http://www.transit.bcn.es/transit/ca/cameres_pagina_16.html, #fotografia_camera > img, Orientació:Plaça Espanya
+Meridiana - Felip II, Barcelona, Meridiana - Felip II, http://www.transit.bcn.es/transit/ca/cameres_pagina_17.html, #fotografia_camera > img, Orientació:Meridiana, sentit Besòs
+Plaça Antonio López, Barcelona, Plaça Antonio López, http://www.transit.bcn.es/transit/ca/cameres_pagina_18.html, #fotografia_camera > img, Orientació:Portal de la Pau
+Plaça Pau Vila, Barcelona, Plaça Pau Vila, http://www.transit.bcn.es/transit/ca/cameres_pagina_19.html, #fotografia_camera > img, Orientació:Ronda Litoral (Besòs)
+Ronda de Dalt - Ctra. Esplugues, Barcelona, Ronda de Dalt - Ctra. Esplugues, http://www.transit.bcn.es/transit/ca/cameres_pagina_20.html, #fotografia_camera > img, Orientació:
+Ronda de Dalt - Meridiana, Barcelona, Ronda de Dalt - Meridiana, http://www.transit.bcn.es/transit/ca/cameres_pagina_21.html, #fotografia_camera > img, Orientació:
+Ronda de Dalt - Sant Gervasi, Barcelona, Ronda de Dalt - Sant Gervasi, http://www.transit.bcn.es/transit/ca/cameres_pagina_22.html, #fotografia_camera > img, Orientació:
+Ronda de Dalt - Velòdrom, Barcelona, Ronda de Dalt - Velòdrom, http://www.transit.bcn.es/transit/ca/cameres_pagina_23.html, #fotografia_camera > img, Orientació:
+Ronda Litoral - Badajoz, Barcelona, Ronda Litoral - Badajoz, http://www.transit.bcn.es/transit/ca/cameres_pagina_24.html, #fotografia_camera > img, Orientació:
+Ronda Litoral - Bon Pastor, Barcelona, Ronda Litoral - Bon Pastor, http://www.transit.bcn.es/transit/ca/cameres_pagina_25.html, #fotografia_camera > img, Orientació:
+Ronda Litoral - Moll de la Fusta, Barcelona, Ronda Litoral - Moll de la Fusta, http://www.transit.bcn.es/transit/ca/cameres_pagina_26.html, #fotografia_camera > img, Orientació:
+Ronda Litoral - Zona Franca, Barcelona, Ronda Litoral - Zona Franca, http://www.transit.bcn.es/transit/ca/cameres_pagina_27.html, #fotografia_camera > img, Orientació:

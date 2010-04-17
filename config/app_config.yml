@@ -1,0 +1,21 @@
+development:
+  domain: localhost:3000
+  paperclip_identify_path: /opt/local/bin/
+  db_cameras_path: etc/db_cameras/
+  db_cameras_mad: cameras_mad.csv
+  db_cameras_bcn: cameras_bcn.csv
+
+test:
+  domain: test.host
+  paperclip_identify_path: /opt/local/bin/
+  db_cameras_path: tmp/db_cameras/
+  db_cameras_mad: cameras_mad.csv
+  db_cameras_bcn: cameras_bcn.csv
+
+production:
+  domain: example.com
+  paperclip_identify_path: /usr/bin/
+  db_cameras_path: etc/db_cameras/
+  db_cameras_mad: cameras_mad.csv
+  db_cameras_bcn: cameras_bcn.csv
+

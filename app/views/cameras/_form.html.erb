@@ -1,0 +1,36 @@
+<% form_for @camera do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :lng %><br />
+    <%= f.text_field :lng %>
+  </p>
+  <p>
+    <%= f.label :lat %><br />
+    <%= f.text_field :lat %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :css_selector %><br />
+    <%= f.text_field :css_selector %>
+  </p>
+  <p>
+    <%= f.label :orientation %><br />
+    <%= f.text_field :orientation %>
+  </p>
+  <p>
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </p>
+  <p>
+    <%= f.label :url_container %><br />
+    <%= f.text_field :url_container %>
+  </p>
+  <p>
+    <%= f.label :url_image %><br />
+    <%= f.text_field :url_image %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
