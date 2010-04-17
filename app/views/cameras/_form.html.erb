@@ -1,36 +1,182 @@
-<% form_for @camera do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :lng %><br />
-    <%= f.text_field :lng %>
-  </p>
-  <p>
-    <%= f.label :lat %><br />
-    <%= f.text_field :lat %>
-  </p>
-  <p>
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :scraping_css_selector %><br />
-    <%= f.text_field :scraping_css_selector %>
-  </p>
-  <p>
-    <%= f.label :orientation %><br />
-    <%= f.text_field :orientation %>
-  </p>
-  <p>
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
-  </p>
-  <p>
-    <%= f.label :scraping_url_container %><br />
-    <%= f.text_field :scraping_url_container %>
-  </p>
-  <p>
-    <%= f.label :url_image %><br />
-    <%= f.text_field :url_image %>
-  </p>
-  <p><%= f.submit "Submit" %></p>
-<% end %>
+<div id="header">    
+  <div class="cont">
+    <a href="" id="logo">Los Ojos de La Ciudad</a>
+    <div id="search">
+      <div id="search_label">
+        centrar mapa:
+      </div>
+          
+      <form action="#" onsubmit="showAddress(this.search_address.value); return false">
+        <div id="form_item">
+          <input type="text" class="text" name="search_address" id="search_address" value="<%= @camera.is_geolocalized? ? @camera.address : "#{@camera.address}, #{@camera.city}" %>">
+          <input type="text" class="text" id="l" value="Localidad" disabled="true">
+          <input type="submit" value="Buscar" class="submit">
+        </div>
+      </form>
+    </div><!-- #search -->
+  </div><!-- .cont -->
+</div><!-- #header -->
+
+<div id="content_home">
+  <% if !@camera.is_geolocalized? %>
+    <div class="alert">Camara no geolocalizada</div>
+  <% end %>
+  
+  <div id="home_map"></div>
+  
+  <%= image_tag @camera.histories.last.image.url %>
+
+  <% form_for @camera do |f| %>
+    <%= f.error_messages %>
+    
+    <p>
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :city %><br />
+      <%= f.text_field :city %>
+    </p>
+    <p>
+      <%= f.label :address %><br />
+      <%= f.text_field :address %>
+    </p>
+    
+    <p>
+      <%= f.label :lng %><br />
+      <%= f.text_field :lng %>
+    </p>
+    <p>
+      <%= f.label :lat %><br />
+      <%= f.text_field :lat %>
+    </p>
+    <p>
+      <%= f.label :orientation %><br />
+      <%= f.text_field :orientation %>
+    </p>
+    
+    <p>
+      <%= f.label :url_image %><br />
+      <%= f.text_field :url_image %>
+    </p>
+
+    <p>
+      <%= f.label :scraping_css_selector %><br />
+      <%= f.text_field :scraping_css_selector %>
+    </p>
+    <p>
+      <%= f.label :scraping_url_container %><br />
+      <%= f.text_field :scraping_url_container %>
+    </p>
+    
+
+    <p><%= f.submit "Submit" %></p>
+  <% end %>
+  
+  
+</div><!-- #content -->
+
+
+<script 
+  src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= APP_CONFIG[:google_api_key] %>"
+  type="text/javascript"></script>
+
+
+<script type="text/javascript">
+  var map = null;
+  var geocoder = null;
+  var marker = null;
+
+  function initialize() {
+    if (GBrowserIsCompatible()) {
+      map = new GMap2(document.getElementById("home_map"));
+      
+      <% if @camera.is_geolocalized? %>
+        var center = 
+          new GLatLng(
+            <%= @camera.lat %>, 
+            <%= @camera.lng %>
+          );
+      <% else %>
+        var center = 
+          new GLatLng(
+            <%= APP_CONFIG[:default_lat] %>, 
+            <%= APP_CONFIG[:default_lng] %>
+          );
+      <% end %>
+      
+      // var center = 
+      //   GLatLng(
+      //     10.0, 
+      //     10.0
+      //   );
+      
+      map.setCenter(center, 13);
+
+      marker = new GMarker(center, {draggable: true});
+
+      GEvent.addListener(marker, "dragstart", function() {
+        map.closeInfoWindow();
+      });
+
+      GEvent.addListener(marker, "dragend", function() {
+        getAddress( marker.getLatLng() );
+        $('#camera_lat').attr('value', marker.getLatLng().lat() );
+        $('#camera_lng').attr('value', marker.getLatLng().lng() );
+      });
+
+      map.addOverlay(marker);
+    
+      var customUI = map.getDefaultUI();
+      // Remove MapType.G_HYBRID_MAP
+      customUI.maptypes.hybrid = false;
+      map.setUI(customUI);
+    
+      geocoder = new GClientGeocoder();
+    }
+  }
+
+  function showAddress(address) {
+    if (geocoder) {
+      geocoder.getLatLng(
+        address,
+        function(point) {
+          if (!point) {
+            alert(address + " not found");
+          } else {
+            map.setCenter(point, 13);
+            marker.setLatLng(point);
+            $('#camera_lat').attr('value', marker.getLatLng().lat() );
+            $('#camera_lng').attr('value', marker.getLatLng().lng() );
+          }
+        }
+      );
+    }
+  }
+
+
+  function getAddress(latlng) {
+    geocoder.getLocations(latlng, updateAddress);
+  }
+
+  function updateAddress(response) {
+    if (!response || response.Status.code != 200) {
+      alert("Status Code:" + response.Status.code);
+    } else {
+      $('#search_address').attr('value', response.Placemark[0].address );
+      $('#camera_address').attr('value', response.Placemark[0].address );
+    }
+  }
+
+  $(document).ready(function() {
+    initialize();
+  });
+
+  $(window).unload( function () { GUnload(); } );
+</script>
+
+
+
+
+
+

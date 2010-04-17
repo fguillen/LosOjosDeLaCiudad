@@ -1,0 +1,83 @@
+Explicación
+====================
+
+<p>Entendemos que la idea del desafío AbreDatos es utilizar los datos públicos que las administraciones ofrecen para con ellos crear herramientas que amplifiquen su valor.</p>
+
+<p>En nuestro caso nos hemos decantado por la utilización de las cámaras de tráfico cuyas imágenes se pueden consultar vía web para con ellas crear una interface unificada, más usable y además más poderosa.</p>
+
+<p>Pretendemos integrar todas las cámaras accesibles vía web en una sola página donde se podrán consultar no sólo las imágenes actuales sino las capturadas en cualquier momento del pasado, pudiéndose además ver las imágenes en movimiento al estilo stop-motion.</p>
+
+
+
+Ampliado
+===================
+
+<p><b>Los Ojos de la Ciudad</b> es un proyecto inspirado por el desafío <a href="http://abredatos.es">AbreDatos</a> un concurso tipo <i>rumble</i> que reta al desarrollo exprés de servicios tecnológicos al ciudadano basados en el uso de datos públicos.</p>
+
+
+<h2>Qué se ofrece</h2>
+
+<p>Un listado de todas las cámaras de tráfico españolas (en una primera fase sólo un número representativo) centradas en una sola página.</p>
+
+<p>Todas las cámaras se mostrarán geo-posicionadas en un mapa interactivo que permitirá acceder a cualquiera de ellas en un sólo click.</p>
+
+<p>Se permite acceder no sólo a la última imagen de la cámara sino a cualquier imagen capturada en el pasado, incluso se podrán activar las imágenes en animación al estilo <i>stop-motion</i>.</p>
+
+
+<h2>Porque</h2>
+
+<p>La información de las cámaras de tráfico españolas está muy diversificada y suele tener una interface difícil de consultar.</p>
+
+<p>Proporcionar una herramienta que integre todas las cámaras en una sola y ágil interface multiplica enormemente el valor informativo de las mismas.</p>
+
+<p>Se permite cruzar datos, por ejemplo: comparar el estado del tráfico en el centro de Madrid con el centro de Barcelona.</p>
+
+<p>Se crea una interface unificada no sólo para personas sino también para máquinas: <span class="caps">API</span>.</p>
+
+<p>La posibilidad de consultar datos del pasado no está ahora mismo ofrecida por los medios oficiales.</p>
+
+
+<h2>Cómo funciona</h2>
+
+<p>En el mapa visible podrás acceder a cualquier posición geográfica indicando una dirección.</p>
+
+<p>El mapa mostrará todas las cámaras registradas en la porción visible del mapa.</p>
+
+<p>Pinchando en una de ellas se abrirá un mini-widget en la parte inferior de la página que pertenece a la cámara clickada.</p>
+
+<p>En el widget se muestra: el nombre de la cámara, la imagen y una barra de control para acceder a imágenes del pasado.</p>
+
+<p>Clickando en otra cámara en el mapa se abrirá otro widget de cámara seguidamente al que ya estaba abierto y así con todas las cámaras que clickes.</p>
+
+<p>Los iconos de cámara en el mapa cambiarán de estado dependiendo de si la cámara tiene el widget activado o no.</p>
+
+<p>Los widgets tienen un control para cerrarlos.</p>
+
+<p>El mapa ofrece un opción de auto-activación de cámaras que consiste en indicar una dirección y un rango de distancia en metros, entonces la aplicación activará los widgets de todas las cámaras registradas en ese rango.</p>
+
+<p>Los widgets irán apareciendo uno detrás de otro según se activen sus cámaras, pero el usuario puede ordenarlos a posteriori simplemente pinchando y arrastrando.</p>
+
+
+<h2>Siguientes pasos</h2>
+
+<p>Implementación de una <span class="caps">API</span> unificada para la accesibilidad de las máquinas a la información almacenada. <i>Ejemplo de uso: acceder desde sistemas de reconocimiento de patrones de imagen</i>.</p>
+
+<p>Aplicación para teléfonos móviles con <span class="caps">GPS</span> que te indique qué cámaras están cercanas a tu posición. <i>Ejemplo de uso: ver si salgo en alguna cámara</i>.</p>
+
+<p>Consultar todas las cámaras de un recorrido urbano. <i>Ejemplo de uso: hacer seguimientos de manifestaciones</i>.</p>
+
+
+<h2>Fuentes de datos</h4>
+
+<ul>
+  <li>http://dgt.es/portal/es/informacion_carreteras/camaras_trafico/</li>
+  <li>http://www.informomadrid.com/informo/map.php?tipo=cam#</li>
+  <li>http://www.bcn.es/transit/es/cameres_pagina_10.html</li>
+</ul>
+
+<h2>Miembros del equipo</h4>
+
+<ul>
+  <li><a href="http://furilo.com" title="Alvaro Ortiz (@furilo)">Alvaro Ortiz (furilo)</a></li>
+  <li><a href="http://fernandoguillen.info" title="Fernando Guillén (@fguillen)">Fernando Guillén (fguillen)</a></li>
+</ul>

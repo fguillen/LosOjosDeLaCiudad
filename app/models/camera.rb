@@ -13,5 +13,8 @@ class Camera < ActiveRecord::Base
     return CityEyes::ScraperProcessor.extract_image_url( scraping_url_container, scraping_css_selector )
   end
   
-  
+
+  def is_geolocalized?
+    return ( !lat.nil? && (lat != 0) && !lng.nil? && (lng != 0) )
+  end
 end
