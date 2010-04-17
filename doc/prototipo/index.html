@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Los Ojos de La Ciudad</title>
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+
+  <meta name="robots" content="NOODP, " />
+  <meta http-equiv="Content-Language" content="es" />
+	
+	<base href="http://localhost/LosOjosDeLaCiudad/public/">
+	
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.5.3/jquery-ui.min.js"></script>
+	<link href="stylesheets/style.css" media="screen" rel="Stylesheet" type="text/css" />
+
+
+<script>
+// original  
+// function resizeFu() {
+//   $('#content_home').height($(window).height() - $('#header').height());
+// 	$('#home_sidebar').height($(window).height() - $('#header').height());
+// 	$('#home_map').height($(window).height() - $('#header').height());
+// 	$('#home_map').width($(window).width() - $('#home_sidebar').width());
+// }
+// $(document).ready(function() {
+// 	resizeFu();
+// });                                                                    
+// $(window).bind('resize', function() {                                  
+//   resizeFu();
+// });
+
+// function resizeFu() {
+//   // $('#content_home').height($(window).height() - $('#header').height());
+// 	$('#home_sidebar').height($(window).height() - $('#header').height());
+// 	$('#home_map').height($('#content_home').height() - ($('#content_home').height() / 2));
+// 	// $('#results').css('margin-top', ($('#content_home').height() / 2) );
+// 	// $('#results').css('margin-top', '400px' );
+// 	
+// }
+// $(document).ready(function() {
+// 	resizeFu();
+// });                                                                    
+// $(window).bind('resize', function() {                                  
+//   resizeFu();
+// });
+
+
+</script>
+
+
+<body>
+
+<div id="container">
+
+	<div id="header">
+		
+		<div class="cont">
+
+			<a href="" id="logo">Los Ojos de La Ciudad</a>
+		
+			<div id="search">
+			
+				<div id="search_label">
+					busca webcams:
+				</div>
+			
+				<div id="form_item">
+					<input type="text" class="text" id="a" value="Dirección">
+					<input type="text" class="text" id="l" value="Localidad">
+					<input type="submit" value="Buscar" class="submit">
+				</div>
+			
+			</div><!-- #search -->
+		
+		</div><!-- .cont -->
+		
+	</div><!-- #header -->
+	
+	
+	<div id="content_home">
+		
+		<div id="home_map">
+			map
+		</div>
+
+		<div id="results">
+			
+			<div class="cont">
+				
+				<p>
+					Tamaño imagen: 
+					<a href="#">pequeño</a>
+					<a href="#">mediano</a>
+					<a href="#">grande</a>
+				</p>
+				
+				
+				<div class="webcam wcs_small">
+					<div class="header">
+						<h2>Plaza de Castilla, Madrid</h2>
+						<div class="tools">
+							<a href="#" title="Arrastrar"><img src="images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
+							<a href="#" title="Centrar en mapa"><img src="images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
+							<a href="#" title="Cerrar cámara"><img src="images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
+						</div>
+					</div>
+					<div class="image">
+						<img src="../doc/prototipo/tmp/img_cam.jpg" width="" height="" alt="">
+					</div>
+					<div class="controls">
+						<div class="play">
+							<a href="#" id="play_cam_ID"><img src="images/ico_play.png" width="12" height="17" alt="Reproducir"></a>
+							
+						</div>
+						<div class="slider"></div>
+						<div class="info_update">
+							últ act: hace 7 minutos
+						</div>
+						
+					</div>
+				</div>
+				
+				<div class="webcam wcs_medium">
+					<div class="header">
+						<h2>Plaza de Castilla, Madrid</h2>
+						<div class="tools">
+							<a href="#" title="Arrastrar"><img src="images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
+							<a href="#" title="Centrar en mapa"><img src="images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
+							<a href="#" title="Cerrar cámara"><img src="images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
+						</div>
+					</div>
+					<div class="image">
+						<img src="../doc/prototipo/tmp/img_cam.jpg" width="" height="" alt="">
+					</div>
+					<div class="controls">
+						<div class="play">
+							
+							<a href="#" id="pause_cam_ID"><img src="images/ico_pause.png" width="12" height="17" alt="Reproducir"></a>
+						</div>
+						<div class="slider"></div>
+						<div class="info_update">
+							últ act: hace 7 minutos
+						</div>
+					</div>
+				</div>
+					
+				
+			</div><!-- .cont -->
+			
+		</div><!-- #results -->
+		
+		
+	</div><!-- #content -->
+	
+
+	
+</div><!-- #container -->
+
+</body>
+</html>
