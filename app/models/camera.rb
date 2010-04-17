@@ -1,5 +1,12 @@
 class Camera < ActiveRecord::Base
-  has_many :histories
+  has_many :histories, :dependent => :destroy
+  
+  validates_presence_of :name, :city
+  validates_uniqueness_of :name
+  
+  named_scope :not_geolocalized,  :conditions => "lat is null or lat = 0 or lng is null or lng = 0"
+  named_scope :geolocalized,      :conditions => "lat is not null and lat != 0 and lng is not null and lng != 0"
+  
   
   acts_as_mappable :default_units => :miles, 
                    :default_formula => :sphere, 

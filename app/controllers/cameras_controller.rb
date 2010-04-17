@@ -1,6 +1,10 @@
 class CamerasController < ApplicationController
   def index
-    @cameras = Camera.all
+    if params[:filter] == 'not_geolocalized'
+      @cameras = Camera.not_geolocalized.all
+    else
+      @cameras = Camera.geolocalized.all
+    end
   end
   
   def show
@@ -17,6 +21,7 @@ class CamerasController < ApplicationController
       flash[:notice] = "Successfully created camera."
       redirect_to @camera
     else
+      flash[:alert] = "Algo malo ha ocurrido al intentar crear Cámara"
       render :action => 'new'
     end
   end
@@ -31,6 +36,7 @@ class CamerasController < ApplicationController
       flash[:notice] = "Successfully updated camera."
       redirect_to @camera
     else
+      flash[:alert] = "Algo malo ha ocurrido al intentar actualizar Cámara"
       render :action => 'edit'
     end
   end

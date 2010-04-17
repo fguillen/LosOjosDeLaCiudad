@@ -1,6 +1,9 @@
 class History < ActiveRecord::Base
   belongs_to :camera
   
+  validates_presence_of :camera_id
+  validates_presence_of :date
+  
   has_attached_file(
     :image, 
     :styles => { 

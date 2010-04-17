@@ -24,7 +24,11 @@
   
   <div id="home_map"></div>
   
-  <%= image_tag @camera.histories.last.image.url %>
+  <% if !@camera.histories.empty? %>
+    <%= image_tag @camera.histories.last.image.url(:large) %>
+  <% else %>
+    <%= image_tag '/images/not_image_camera_large.jpg' %>
+  <% end %>
 
   <% form_for @camera do |f| %>
     <%= f.error_messages %>

@@ -34,7 +34,11 @@
             </div>
           </div>
           <div class="image">
-            <%= image_tag @camera.histories.last.image.url(:small) %>
+            <% if !@camera.histories.empty? %>
+              <%= image_tag @camera.histories.last.image.url(:small) %>
+            <% else %>
+              <%= image_tag '/images/not_image_camera_small.jpg' %>
+            <% end %>
           </div>
           <div class="controls">
             <div class="play">
@@ -58,7 +62,11 @@
             </div>
           </div>
           <div class="image">
-            <%= image_tag @camera.histories.last.image.url(:medium) %>
+            <% if !@camera.histories.empty? %>
+              <%= image_tag @camera.histories.last.image.url(:medium) %>
+            <% else %>
+              <%= image_tag '/images/not_image_camera_medium.jpg' %>
+            <% end %>        
           </div>
           <div class="controls">
             <div class="play">
@@ -82,7 +90,11 @@
             </div>
           </div>
           <div class="image">
-            <%= image_tag @camera.histories.last.image.url(:large) %>
+            <% if !@camera.histories.empty? %>
+              <%= image_tag @camera.histories.last.image.url(:large) %>
+            <% else %>
+              <%= image_tag '/images/not_image_camera_large.jpg' %>
+            <% end %>
           </div>
           <div class="controls">
             <div class="play">
