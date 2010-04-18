@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :cameras, :member => { :widget => :get, :snapshot => :get }
+  map.resources :cameras, :member => { :widget => :get }
+  
+  map.snapshot '/cameras/:camera_id/snapshots/:datetime/:size', :controller => 'cameras', :action => 'snapshot'
 
   # The priority is based upon order of creation: first created -> highest priority.
 

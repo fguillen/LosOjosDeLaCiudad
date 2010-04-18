@@ -143,7 +143,7 @@ class CamerasControllerTest < ActionController::TestCase
     history_201001010201 = Factory(:history, :date => '2010-01-01 02:01', :camera => camera)
     history_201001010301 = Factory(:history, :date => '2010-01-01 03:01', :camera => camera)
     
-    get( :snapshot, :id => camera, :datetime => '201001010101', :size => 'medium' )
+    get( :snapshot, :camera_id => camera, :datetime => '201001010101', :size => 'medium' )
 
     # puts @response.body
     # {\"image_url\":\"/images/medium/missing.png\",\"datetime\":\"2010/01/01 01:01\"}    
@@ -157,7 +157,7 @@ class CamerasControllerTest < ActionController::TestCase
     camera = Factory(:camera)
     history_201001010101 = Factory(:history, :date => '2010-01-01 01:01', :camera => camera)
     
-    get( :snapshot, :id => camera, :datetime => '200901010101', :size => 'medium' )
+    get( :snapshot, :camera_id => camera, :datetime => '200901010101', :size => 'medium' )
 
     # puts @response.body
     # <"{\"image_url\":\"/images/not_image_medium.jpg\",\"datetime\":\"2009/01/01 01:01\"}"
@@ -167,18 +167,18 @@ class CamerasControllerTest < ActionController::TestCase
     assert_equal( 'application/json', @response.content_type )
   end
   
-  def test_snapshot_without_datetime_param_should_responses_with_last
+  def test_snapshot_with_datetime_param_actual_should_responses_with_last
     camera = Factory(:camera)
     history_201001010103 = Factory(:history, :date => '2010-01-01 01:03', :camera => camera)
     history_201001010101 = Factory(:history, :date => '2010-01-01 01:01', :camera => camera)
     
-    get( :snapshot, :id => camera, :size => 'medium' )
+    get( :snapshot, :camera_id => camera, :datetime => 'actual', :size => 'medium' )
 
     # puts @response.body
     # <"{\"datetime\":\"2010/03/01 01:01\",\"image_url\":\"/images/medium/missing.png\"}">
     
     assert_match( "medium", @response.body)
-    assert_match( "\"datetime\":\"2010/03/01 01:01\"", @response.body)
+    assert_match( "\"datetime\":\"2010/01/01 01:03\"", @response.body)
     assert_equal( 'application/json', @response.content_type )
   end
 end

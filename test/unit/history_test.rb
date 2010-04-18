@@ -1,11 +1,6 @@
 require 'test_helper'
 
 class HistoryTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
-  
   def test_snapshot
     camera = Factory(:camera)
     history_201001010101 = Factory(:history, :date => '2010-01-01 01:01', :camera => camera)

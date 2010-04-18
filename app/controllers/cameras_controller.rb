@@ -56,12 +56,12 @@ class CamerasController < ApplicationController
   end
   
   def snapshot
-    @camera = Camera.find(params[:id])
+    @camera = Camera.find(params[:camera_id])
     
-    if !params[:datetime].blank?
-      @history = History.snapshot( @camera, params[:datetime] )
-    else
+    if params[:datetime] == 'actual'
       @history = @camera.histories.first( :order => 'date desc' )
+    else
+      @history = History.snapshot( @camera, params[:datetime] )
     end
     
     if @history.nil?

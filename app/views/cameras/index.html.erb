@@ -1,5 +1,12 @@
 <div id="header">    
   <div class="cont">
+    <script>
+      date = new Date('2010',11,'02','03','04');
+      
+      window.document.write(date);
+      window.document.write('<br />');
+      window.document.write(date.getMonth());
+    </script>
     <a href="" id="logo">Los Ojos de La Ciudad</a>
     <div id="search">
       <div id="search_label">
@@ -53,6 +60,7 @@
 <script type="text/javascript">
   var map = null;
   var markers = new Array();
+  var videos = new Array();
 
   function initialize() {
     if (GBrowserIsCompatible()) {
@@ -149,11 +157,71 @@
     markers[camera_id].activated = false;
   }
   
-  function chargeSnapshot( camera_id, request_path ){
+  function chargeSnapshot( camera_id, datetime, size ){
+    $('#actualdatetime_' + camera_id).val( datetime );
+    
+    if( !datetime ){
+      datetime = 'actual';
+    }
+    
+    request_path = "/cameras/" + camera_id + "/snapshots/" + datetime + "/" + size;
+    
     $.getJSON(request_path, function(data) {
       $('#widget_' + camera_id + ' .image img').attr( 'src', data.image_url );
       $('#widget_' + camera_id + ' .info_update').html( data.datetime );
     });
+  }
+  
+  function playCamera( camera_id, size, actualdatetime ){
+    if( !actualdatetime ){
+      pauseCamera( camera_id );
+      actualdatetime = $('#actualdatetime_' + camera_id).val();
+      
+      $('#play_cam_' + camera_id).fadeOut('slow', function() {
+        $('#pause_cam_' + camera_id).fadeIn('slow');
+      });
+    }
+    
+    var timeout = 2000;
+    
+    if( actualdatetime != 'actual'){
+      year = actualdatetime.substr(0,4);
+      month = actualdatetime.substr(4,2);
+      day = actualdatetime.substr(6,2);
+      hour = actualdatetime.substr(8,2);
+      minute = actualdatetime.substr(10,2);
+    
+      date = new Date( year, parseInt(month) - 1, day, hour, minute );
+      milliseconds = date.getTime();
+      date_more_30_minutes = new Date( milliseconds + 1800000 );
+    
+      actualdatetime = date_more_30_minutes.format( 'yyyymmddHHMM' );
+    
+      // "dddd, mmmm dS, yyyy, h:MM:ss TT");
+      // 
+      //   date_more_30_minutes.getFullYear() + '' + 
+      //   date_more_30_minutes.getMonth() +
+      //   date_more_30_minutes.getDate() +
+      //   date_more_30_minutes.getHours() +
+      //   date_more_30_minutes.getMinutes();
+    } else {
+      timeout = 300000; // 5 minutes
+    }
+      
+    chargeSnapshot( camera_id, actualdatetime, size );
+    
+    videos[camera_id] = window.setTimeout(playCamera, timeout, camera_id, size, actualdatetime );
+  }
+  
+  function pauseCamera( camera_id ){
+    if( videos[camera_id] ) {
+      window.clearTimeout(videos[camera_id]);
+      videos[camera_id] = null;
+      
+      $('#pause_cam_' + camera_id).fadeOut('slow', function() {
+        $('#play_cam_' + camera_id).fadeIn('slow');
+      });
+    }
   }
   
 
