@@ -151,6 +151,13 @@
 
   $(document).ready(function() {
     initialize();
+
+    // sortable
+    // this can call an event:
+    // http://www.wil-linssen.com/musings/entry/extending-the-jquery-sortable-with-ajax-mysql/
+    $("#widgets").sortable({ handle : '.handle' }); 
+    
+
   });
 
   $(window).unload( function () { GUnload(); } );
