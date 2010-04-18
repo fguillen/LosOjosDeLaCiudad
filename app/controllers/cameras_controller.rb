@@ -65,9 +65,9 @@ class CamerasController < ApplicationController
     end
     
     if @history.nil?
-      render :json => { :image_url => "/images/not_image_#{params[:size]}.jpg", :datetime => Time.parse(params[:datetime]).strftime( "%Y/%M/%d %H:%m" ) }
+      render :json => { :image_url => "/images/not_image_#{params[:size]}.jpg", :datetime => Time.parse(params[:datetime]).strftime( "%Y/%m/%d %H:%M" ) }
     else
-      render :json => { :image_url => @history.image.url(params[:size].to_sym), :datetime => @history.date.strftime( "%Y/%M/%d %H:%m" ) }
+      render :json => { :image_url => @history.image.url(params[:size].to_sym), :datetime => @history.date.strftime( "%Y/%m/%d %H:%M" ) }
     end
   end
 end

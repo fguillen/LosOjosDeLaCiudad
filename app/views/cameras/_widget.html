@@ -29,7 +29,7 @@
       <% end %>
     </div>
     <div class="timeline">
-      <% (95..0).each do |num| %>
+      <% (0..95).map { |n| n }.reverse.each do |num| %>
         <a href="javascript:chargeSnapshot( <%= camera.id %>, '<%= snapshot_camera_path( camera, :datetime => ((num*30).minutes.ago.strftime("%Y%m%d%H%M")), :size => size ) %>' )">
           <%= image_tag( '/images/timeline_point.gif' ) %>
         </a>
