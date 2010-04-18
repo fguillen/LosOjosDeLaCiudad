@@ -36,7 +36,9 @@ body { margin: 0; padding: 0; font: 82.5% Arial;}
 #results h2 { margin: 0; font: normal .85em "Trebuchet MS", Arial; background: #4A260D; padding: 2px; color: #FFF;}
 #results .header { position: relative;}
 #results .header .tools { position: absolute; top: 2px; right: 3px;}
-#results .webcam { float: left; margin: 0 30px 30px 0;}
+#results .webcam { /*float: left; margin: 0 30px 30px 0;*/}
+#results li { float: left; margin: 0 30px 30px 0; list-style-type: none; padding: 0;}
+#results ul { margin: 0; padding: 0;}
 
 #results .wcs_small .image img { width: 150px; height: 110px;}
 #results .wcs_medium .image img { width: 240px; height: 176px;}
