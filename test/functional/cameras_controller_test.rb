@@ -149,7 +149,7 @@ class CamerasControllerTest < ActionController::TestCase
     # {\"image_url\":\"/images/medium/missing.png\",\"datetime\":\"2010/01/01 01:01\"}    
     
     assert_match( "medium", @response.body)
-    assert_match( "\"datetime\":\"2010/01/01 01:01\"", @response.body)
+    assert_match( "\"datetime\":\"01 Jan 03:01\"", @response.body)
     assert_equal( 'application/json', @response.content_type )
   end
   
@@ -163,7 +163,7 @@ class CamerasControllerTest < ActionController::TestCase
     # <"{\"image_url\":\"/images/not_image_medium.jpg\",\"datetime\":\"2009/01/01 01:01\"}"
     
     assert_match( "medium", @response.body)
-    assert_match( "\"datetime\":\"2009/01/01 01:01\"", @response.body)
+    assert_match( "\"datetime\":\"01 Jan 01:01\"", @response.body)
     assert_equal( 'application/json', @response.content_type )
   end
   
@@ -178,7 +178,7 @@ class CamerasControllerTest < ActionController::TestCase
     # <"{\"datetime\":\"2010/03/01 01:01\",\"image_url\":\"/images/medium/missing.png\"}">
     
     assert_match( "medium", @response.body)
-    assert_match( "\"datetime\":\"2010/01/01 01:03\"", @response.body)
+    assert_match( "\"datetime\":\"01 Jan 03:03\"", @response.body)
     assert_equal( 'application/json', @response.content_type )
   end
 end
