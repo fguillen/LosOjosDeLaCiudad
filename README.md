@@ -22,7 +22,9 @@ Tasks
     rake city_eyes:dustpan
     
     
-
+Grettings
+==================
+  Camera icon from: http://www.iconspedia.com/icon/camera-13-15.html
 
     
 

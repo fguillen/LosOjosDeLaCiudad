@@ -10,7 +10,7 @@ body { margin: 0; padding: 0; font: 82.5% Arial;}
 #header #search #search_label span { font: normal .65em Tahoma; letter-spacing: 0;}
 #header #search #form_item { }
 #header #search #form_item input { font: 1.2em Helvetica; color: #666; padding: .25em .15em .05em .15em;}
-#header #search #form_item input#a { width: 250px;}
+#header #search #form_item input#search_address { width: 400px;}
 #header #search #form_item input#l { width: 150px;}
 #header #search #form_item input.submit { height: 1.75em; }
 #content_home { position: relative;}

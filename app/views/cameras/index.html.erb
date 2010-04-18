@@ -8,7 +8,7 @@
       <form action="#" onsubmit="showAddress(this.search_address.value); return false">
         <div id="form_item">
           <input type="text" class="text" name="search_address" id="search_address" value="Dirección">
-          <input type="text" class="text" id="l" value="Localidad" disabled="true">
+          <!-- <input type="text" class="text" id="l" value="Localidad" disabled="true"> -->
           <input type="submit" value="Buscar" class="submit">
         </div>
       </form>
@@ -55,6 +55,8 @@
   var markers = new Array();
   var videos = new Array();
   var timelineSteps = new Array();
+  var camera_deactived_icon = null;
+  var camera_actived_icon = null;
   
   function initializeDatetimeSteps(){
     <% (0..98).to_a.reverse.each_with_index do |num, index| %>
@@ -81,14 +83,29 @@
       <% end %>
     
       map.setCenter(center, 13);
+      
+      // initialize icons
+      var camera_deactived_icon = new GIcon();
+      camera_deactived_icon.image = "/images/camera_icon_deactived.png";
+      camera_deactived_icon.size = new GSize(48,48);
+      camera_deactived_icon.iconAnchor = new GPoint(24,24);
+      
+      var camera_actived_icon = new GIcon();
+      camera_actived_icon.image = "/images/camera_icon_actived.png";
+      camera_actived_icon.size = new GSize(48,48);
+      camera_actived_icon.iconAnchor = new GPoint(24,24);
     
       /* The Markers */
       <% @cameras.geolocalized.each do |camera| %>
         markers[<%= camera.id %>] = {
           'camera_name': '<%= camera.name %>',
-          'gMarker': new GMarker( new GLatLng( <%= camera.lat %>, <%= camera.lng %> ) ),
+          'gMarker': new GMarker( new GLatLng( <%= camera.lat %>, <%= camera.lng %> ), <%= (params[:autoactivation] == 'true' && admin?) ? 'camera_actived_icon' : 'camera_deactived_icon' %>),
           'activated': <%= (params[:autoactivation] == 'true' && admin?) ? 'true' : 'false' %>
         };
+        
+        // set image
+        // markers[<%= camera.id %>].gMarker.setImage('/images/camera_deactived.gif');
+        
         
         // GEvent.addListener(markers[<%= camera.id %>].gMarker, "mouseover", function() {
         //   var myHtml = "<b><%= camera.name %></b>";
@@ -106,6 +123,7 @@
             );
             
           } else {
+            markers[<%= camera.id %>].gMarker.setImage( '/images/camera_icon_actived.png' );
             addWidget( <%= camera.id %>, '<%= widget_camera_path( camera ) %>' );
             markers[<%= camera.id %>].activated = true;
           }
@@ -156,6 +174,7 @@
     });
 
     markers[camera_id].activated = false;
+    markers[camera_id].gMarker.setImage( '/images/camera_icon_deactived.png' );
   }
   
   function chargeSnapshot( camera_id, datetimeStep, size ){
