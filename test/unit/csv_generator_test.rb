@@ -26,4 +26,11 @@ class CSVGeneratorTest < ActiveSupport::TestCase
       File.read( file_path )
     )
   end
+  
+  def test_csv_all
+    CityEyes::CSVGenerator.expects( :csv_cameras_mad )
+    CityEyes::CSVGenerator.expects( :csv_cameras_bcn )
+    
+    CityEyes::CSVGenerator.csv_all
+  end
 end

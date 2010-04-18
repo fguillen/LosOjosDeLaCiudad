@@ -4,6 +4,9 @@ development:
   db_cameras_path: etc/db_cameras/
   db_cameras_mad: cameras_mad.csv
   db_cameras_bcn: cameras_bcn.csv
+  google_api_key: 'ABQIAAAAlqHVgda1Vyq8JQWd9v1BVRTZe2NynXf9TfusV2EJKPopn2_KfxQ2OFHVA5G6E08qVGyjqI6Ga6221A'
+  default_lat: 40.4166909
+  default_lng: -3.7003454
 
 test:
   domain: test.host
@@ -11,6 +14,9 @@ test:
   db_cameras_path: tmp/db_cameras/
   db_cameras_mad: cameras_mad.csv
   db_cameras_bcn: cameras_bcn.csv
+  google_api_key: 'ABQIAAAAlqHVgda1Vyq8JQWd9v1BVRTZe2NynXf9TfusV2EJKPopn2_KfxQ2OFHVA5G6E08qVGyjqI6Ga6221A'
+  default_lat: 40.4166909
+  default_lng: -3.7003454
 
 production:
   domain: example.com
@@ -18,4 +24,7 @@ production:
   db_cameras_path: etc/db_cameras/
   db_cameras_mad: cameras_mad.csv
   db_cameras_bcn: cameras_bcn.csv
+  google_api_key: 'ABQIAAAAlqHVgda1Vyq8JQWd9v1BVRTZe2NynXf9TfusV2EJKPopn2_KfxQ2OFHVA5G6E08qVGyjqI6Ga6221A'
+  default_lat: 40.4166909
+  default_lng: -3.7003454
 

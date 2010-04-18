@@ -18,7 +18,7 @@ class ScraperProcessorTest < ActiveSupport::TestCase
   def test_extract_mad_cameras
     cameras_mad_hashes = CityEyes::ScraperProcessor.extract_mad_cameras
     
-    assert_equal( 170, cameras_mad_hashes.size )
+    assert( cameras_mad_hashes.size > 160 )
     
     assert_equal( "\nPLAZA DE CASTILLA - NORTE", cameras_mad_hashes[0][:name] )
     assert_equal( '../Camaras/Camara00001_MDF.jpg', cameras_mad_hashes[0][:url] )

@@ -1,41 +1,176 @@
-<% title "Cameras" %>
+<div id="header">    
+  <div class="cont">
+    <a href="" id="logo">Los Ojos de La Ciudad</a>
+    <div id="search">
+      <div id="search_label">
+        busca webcams:
+      </div>
+      <form action="#" onsubmit="showAddress(this.search_address.value); return false">
+        <div id="form_item">
+          <input type="text" class="text" name="search_address" id="search_address" value="Dirección">
+          <input type="text" class="text" id="l" value="Localidad" disabled="true">
+          <input type="submit" value="Buscar" class="submit">
+        </div>
+      </form>
+    </div><!-- #search -->
+  </div><!-- .cont -->
+</div><!-- #header -->
 
-<table>
-  <tr>
-    <th>Lng</th>
-    <th>Lat</th>
-    <th>Name</th>
-    <th>Css Selector</th>
-    <th>Orientation</th>
-    <th>Address</th>
-    <th>Url Container</th>
-    <th>Url image</th>
-  </tr>
-  <% for camera in @cameras %>
-    <tr>
-      <td><%=h camera.lng %></td>
-      <td><%=h camera.lat %></td>
-      <td><%=h camera.name %></td>
-      <td><%=h camera.css_selector %></td>
-      <td><%=h camera.orientation %></td>
-      <td><%=h camera.address %></td>
-      <td><%=h camera.url_container %></td>
-      <td><%=h camera.url_image %></td>
-      <td><%= link_to "Show", camera %></td>
-      <td><%= link_to "Edit", edit_camera_path(camera) %></td>
-      <td><%= link_to "Destroy", camera, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-    
-    <div class="history">
-      <ul>
-        <% camera.histories.each do |history| %>
-        <li>
-          <%= image_tag history.image.url %>
-        </li>
-        <% end  %>
+<div id="content_home">
+  <div id="home_map"></div>
+
+  <div id="results">      
+    <div class="cont">
+      <p><%= @cameras.size %> cámaras.</p>
+      <p>
+        Tamaño imagen: 
+        <a href="#">pequeño</a>
+        <a href="#">mediano</a>
+        <a href="#">grande</a>
+      </p>
+      
+      <ul id="widgets">
+        <% if params[:autoactivation] == 'true' %>
+          <% @cameras.each do |camera| %>
+            <%= render :partial => 'widget', :locals => { :camera => camera, :size => 'medium' } %>
+          <% end %>
+        <% end %>
       </ul>
-    </div>
-  <% end %>
-</table>
+      
 
-<p><%= link_to "New Camera", new_camera_path %></p>
+        
+      
+    </div><!-- .cont -->
+  </div><!-- #results -->
+  
+</div><!-- #content -->
+
+<script 
+  src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= APP_CONFIG[:google_api_key] %>"
+  type="text/javascript"></script>
+
+
+<script type="text/javascript">
+  var map = null;
+  var markers = new Array();
+
+  function initialize() {
+    if (GBrowserIsCompatible()) {
+      map = new GMap2(document.getElementById("home_map"));
+      <% if !@cameras.empty? && @cameras.first.is_geolocalized? %>
+        var center = 
+          new GLatLng(
+            <%= @cameras.first.lat %>, 
+            <%= @cameras.first.lng %>
+          );
+      <% else %>
+        var center = 
+          new GLatLng(
+            <%= APP_CONFIG[:default_lat] %>, 
+            <%= APP_CONFIG[:default_lng] %>
+          );
+      <% end %>
+    
+      map.setCenter(center, 13);
+    
+      /* The Markers */
+      <% @cameras.geolocalized.each do |camera| %>
+        markers[<%= camera.id %>] = {
+          'camera_name': '<%= camera.name %>',
+          'gMarker': new GMarker( new GLatLng( <%= camera.lat %>, <%= camera.lng %> ) ),
+          'activated': <%= params[:autoactivation] == 'true' ? 'true' : 'false' %>
+        };
+        
+        // GEvent.addListener(markers[<%= camera.id %>].gMarker, "mouseover", function() {
+        //   var myHtml = "<b><%= camera.name %></b>";
+        //   map.openInfoWindowHtml(markers[<%= camera.id %>].gMarker.getLatLng(), myHtml);
+        // });
+        
+        GEvent.addListener(markers[<%= camera.id %>].gMarker, "click", function() {
+          // adding widget or scrolling to widget
+          if( markers[<%= camera.id %>].activated ){
+            
+            $.scrollTo( 
+              '#widget_<%= camera.id %>', 
+              800,
+              { onAfter: function(){alert("hightlight!");} }
+            );
+            
+          } else {
+            addWidget( <%= camera.id %>, '<%= widget_camera_path( camera ) %>' );
+            markers[<%= camera.id %>].activated = true;
+          }
+        });
+        
+        map.addOverlay(markers[<%= camera.id %>].gMarker);
+      <% end %>
+      /* The Markers END */
+    
+      var customUI = map.getDefaultUI();
+      // Remove MapType.G_HYBRID_MAP
+      customUI.maptypes.hybrid = false;
+      map.setUI(customUI);
+      
+      geocoder = new GClientGeocoder();
+    }
+  }
+
+  function setMapCenter( camera_id, address ){
+    map.panTo( markers[camera_id].gMarker.getLatLng() );
+    $('#search_address').attr( 'value', address );
+  }
+  
+  function showAddress(address) {
+    if (geocoder) {
+      geocoder.getLatLng(
+        address,
+        function(point) {
+          if (!point) {
+            alert(address + " not found");
+          } else {
+            map.panTo(point, 13);
+          }
+        }
+      );
+    }
+  }
+  
+  function addWidget( camera_id, request_path ){
+    $.get(request_path, function(data) {
+      $('#widgets').prepend( data );
+    });
+  }
+  
+  function removeWidget( camera_id ){
+    $('#widget_' + camera_id).fadeOut('slow', function() {
+      $(this).remove();
+    });
+
+    markers[camera_id].activated = false;
+  }
+  
+  function chargeSnapshot( camera_id, request_path ){
+    $.getJSON(request_path, function(data) {
+      $('#widget_' + camera_id + ' .image img').attr( 'src', data.image_url );
+      $('#widget_' + camera_id + ' .info_update').html( data.datetime );
+    });
+  }
+  
+
+  $(document).ready(function() {
+    initialize();
+
+    // sortable
+    // this can call an event:
+    // http://www.wil-linssen.com/musings/entry/extending-the-jquery-sortable-with-ajax-mysql/
+    $("#widgets").sortable({ handle : '.handle' }); 
+    
+
+  });
+
+  $(window).unload( function () { GUnload(); } );
+
+</script>
+
+
+

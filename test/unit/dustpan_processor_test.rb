@@ -5,8 +5,8 @@ class DustpanProcessorTest < ActiveSupport::TestCase
     camera_bcn = 
       Factory(
         :camera,
-        :url_container => 'http://www.bcn.cat/transit/es/cameres_pagina_26.html',
-        :css_selector => '#fotografia_camera > img'
+        :scraping_url_container => 'http://www.bcn.cat/transit/es/cameres_pagina_26.html',
+        :scraping_css_selector => '#fotografia_camera > img'
       )
       
     camera_a1 =

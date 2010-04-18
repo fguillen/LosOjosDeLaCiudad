@@ -1,40 +1,85 @@
-<% title "Camera" %>
+<div id="header">    
+  <div class="cont">
+    <a href="" id="logo">Los Ojos de La Ciudad</a>
+    <div id="search">
+      <div id="search_label">
+        centrar mapa:
+      </div>
+      <div id="form_item">
+        <input type="text" class="text" id="a" value="Dirección">
+        <input type="text" class="text" id="l" value="Localidad">
+        <input type="submit" value="Buscar" class="submit">
+      </div>
+    </div><!-- #search -->
+  </div><!-- .cont -->
+</div><!-- #header -->
 
-<p>
-  <strong>Lng:</strong>
-  <%=h @camera.lng %>
-</p>
-<p>
-  <strong>Lat:</strong>
-  <%=h @camera.lat %>
-</p>
-<p>
-  <strong>Name:</strong>
-  <%=h @camera.name %>
-</p>
-<p>
-  <strong>Css Selector:</strong>
-  <%=h @camera.css_selector %>
-</p>
-<p>
-  <strong>Orientation:</strong>
-  <%=h @camera.orientation %>
-</p>
-<p>
-  <strong>Address:</strong>
-  <%=h @camera.address %>
-</p>
-<p>
-  <strong>Url Container:</strong>
-  <%=h @camera.url_container %>
-</p>
-<p>
-  <strong>Url image:</strong>
-  <%=h @camera.url_image %>
-</p>
+<div id="content_home">
+  <% if !@camera.is_geolocalized? %>
+    <div class="alert">Camara no geolocalizada</div>
+  <% end %>
+  
+  <div id="home_map"></div>
+
+  <div id="results">      
+    <div class="cont">
+      
+      <%= render :partial => 'widget', :locals => { :camera => @camera, :size => 'small' } %>
+      <%= render :partial => 'widget', :locals => { :camera => @camera, :size => 'medium' } %>
+      <%= render :partial => 'widget', :locals => { :camera => @camera, :size => 'large' } %>
+      
+    </div><!-- .cont -->
+  </div><!-- #results -->
+  
+</div><!-- #content -->
+
 
 <p>
   <%= link_to "Edit", edit_camera_path(@camera) %> |
   <%= link_to "Destroy", @camera, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", cameras_path %>
 </p>
+
+
+<script 
+  src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=<%= APP_CONFIG[:google_api_key] %>"
+  type="text/javascript"></script>
+
+
+<script type="text/javascript">
+  function initialize() {
+    if (GBrowserIsCompatible()) {
+      var map = new GMap2(document.getElementById("home_map"));
+      
+      <% if @camera.is_geolocalized? %>
+        var center = 
+          new GLatLng(
+            <%= @camera.lat %>, 
+            <%= @camera.lng %>
+          );
+      <% else %>
+        var center = 
+          new GLatLng(
+            <%= APP_CONFIG[:default_lat] %>, 
+            <%= APP_CONFIG[:default_lng] %>
+          );
+      <% end %>
+      
+      map.setCenter(center, 13);
+      marker = new GMarker(center);
+      map.addOverlay(marker);
+      
+      var customUI = map.getDefaultUI();
+      // Remove MapType.G_HYBRID_MAP
+      customUI.maptypes.hybrid = false;
+      map.setUI(customUI);
+    }
+  }
+
+  $(document).ready(function() {
+    initialize();
+  });
+
+  $(window).unload( function () { GUnload(); } );
+</script>
+

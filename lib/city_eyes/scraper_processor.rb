@@ -1,12 +1,12 @@
 module CityEyes
   class ScraperProcessor
-    def self.extract_image_url( url_container, css_selector )
+    def self.extract_image_url( scraping_url_container, scraping_css_selector )
       scraper = Scraper.define do  
-        process css_selector, :img_src => "@src"  
+        process scraping_css_selector, :img_src => "@src"  
         result :img_src
       end  
         
-      uri = URI.parse( url_container )  
+      uri = URI.parse( scraping_url_container )  
       
       scraper.scrape( uri )
     end

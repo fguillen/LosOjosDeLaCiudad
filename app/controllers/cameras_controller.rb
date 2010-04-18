@@ -1,6 +1,7 @@
 class CamerasController < ApplicationController
   def index
-    @cameras = Camera.all
+    opts = {:geolocalized => 'true'}.merge( params.symbolize_keys() )
+    @cameras = Camera.filter( opts )
   end
   
   def show
@@ -17,6 +18,7 @@ class CamerasController < ApplicationController
       flash[:notice] = "Successfully created camera."
       redirect_to @camera
     else
+      flash[:alert] = "Algo malo ha ocurrido al intentar crear Cámara"
       render :action => 'new'
     end
   end
@@ -31,6 +33,7 @@ class CamerasController < ApplicationController
       flash[:notice] = "Successfully updated camera."
       redirect_to @camera
     else
+      flash[:alert] = "Algo malo ha ocurrido al intentar actualizar Cámara"
       render :action => 'edit'
     end
   end
@@ -44,5 +47,27 @@ class CamerasController < ApplicationController
   
   def geoposition
     @camera = Camera.find(params[:id])
+  end
+  
+  def widget
+    @camera = Camera.find(params[:id])
+    
+    render :partial => 'widget', :locals => {:camera => @camera, :size => 'medium'}
+  end
+  
+  def snapshot
+    @camera = Camera.find(params[:id])
+    
+    if !params[:datetime].blank?
+      @history = History.snapshot( @camera, params[:datetime] )
+    else
+      @history = @camera.histories.first( :order => 'date desc' )
+    end
+    
+    if @history.nil?
+      render :json => { :image_url => "/images/not_image_#{params[:size]}.jpg", :datetime => Time.parse(params[:datetime]).strftime( "%Y/%m/%d %H:%M" ) }
+    else
+      render :json => { :image_url => @history.image.url(params[:size].to_sym), :datetime => @history.date.strftime( "%Y/%m/%d %H:%M" ) }
+    end
   end
 end
