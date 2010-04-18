@@ -48,4 +48,10 @@ class CamerasController < ApplicationController
   def geoposition
     @camera = Camera.find(params[:id])
   end
+  
+  def widget
+    @camera = Camera.find(params[:id])
+    
+    render :partial => 'widget', :locals => {:camera => @camera, :size => 'medium'}
+  end
 end

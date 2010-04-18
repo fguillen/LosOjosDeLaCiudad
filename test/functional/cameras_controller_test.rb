@@ -125,4 +125,15 @@ class CamerasControllerTest < ActionController::TestCase
     assert_redirected_to cameras_url
     assert !Camera.exists?(camera.id)
   end
+  
+  def test_widget
+    camera = Factory(:camera)
+    
+    get(
+      :widget,
+      :id => camera
+    )
+    
+    assert_template :partial => '_widget'
+  end
 end

@@ -1,0 +1,36 @@
+<li>
+<div class="webcam wcs_<%= size %>" id="widget_<%= camera.id %>">
+  <div class="header">
+    <h2><%= camera.name %></h2>
+    <div class="tools">
+      <a href="#" title="Arrastrar"><img src="/images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
+      <a href="javascript: setMapCenter(<%= camera.id %>, '<%= camera.address %>')" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
+      <a href="javascript: removeWidget(<%= camera.id %>);" title="Cerrar cámara"><img src="/images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
+    </div>
+  </div>
+  <div class="image">
+    <% if !camera.histories.empty? %>
+      <%= image_tag camera.histories.last.image.url(size.to_sym) %>
+    <% else %>
+      <%= image_tag "/images/not_image_camera_#{size}.jpg" %>
+    <% end %>
+  </div>
+  <div class="controls">
+    <div class="play">
+  
+      <a href="#" id="pause_cam_ID"><img src="/images/ico_pause.png" width="12" height="17" alt="Reproducir"></a>
+    </div>
+    <div class="slider"></div>
+    <div class="info_update">
+      <% if !camera.histories.empty? %>
+        <%= camera.histories.last.date %>
+      <% else %>
+        Ninguna imagen
+      <% end %>
+    </div>
+    <div class="admin">
+      <%= link_to 'edit', edit_camera_path( camera ) %>
+    </div>
+  </div>
+</div>
+</li>

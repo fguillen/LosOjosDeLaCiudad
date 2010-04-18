@@ -28,44 +28,14 @@
         <a href="#">mediano</a>
         <a href="#">grande</a>
       </p>
-      <% if params[:autoactivation] == 'true' %>
-        <% @cameras.each do |camera| %>
-          <div class="webcam wcs_medium">
-            <div class="header">
-              <h2><%= camera.name %></h2>
-              <div class="tools">
-                <a href="#" title="Arrastrar"><img src="/images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
-                <a href="javascript: setMapCenter(<%= camera.id %>, '<%= camera.address %>')" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
-                <a href="#" title="Cerrar cámara"><img src="/images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
-              </div>
-            </div>
-            <div class="image">
-              <% if !camera.histories.empty? %>
-                <%= image_tag camera.histories.last.image.url(:medium) %>
-              <% else %>
-                <%= image_tag '/images/not_image_camera_medium.jpg' %>
-              <% end %>
-            </div>
-            <div class="controls">
-              <div class="play">
-            
-                <a href="#" id="pause_cam_ID"><img src="/images/ico_pause.png" width="12" height="17" alt="Reproducir"></a>
-              </div>
-              <div class="slider"></div>
-              <div class="info_update">
-                <% if !camera.histories.empty? %>
-                  <%= camera.histories.last.date %>
-                <% else %>
-                  Ninguna imagen
-                <% end %>
-              </div>
-              <div class="admin">
-                <%= link_to 'edit', edit_camera_path( camera ) %>
-              </div>
-            </div>
-          </div>
+      
+      <ul id="widgets">
+        <% if params[:autoactivation] == 'true' %>
+          <% @cameras.each do |camera| %>
+            <%= render :partial => 'widget', :locals => { :camera => camera, :size => 'medium' } %>
+          <% end %>
         <% end %>
-      <% end %>
+      </ul>
       
 
         
@@ -103,19 +73,38 @@
     
       map.setCenter(center, 13);
     
+      /* The Markers */
       <% @cameras.geolocalized.each do |camera| %>
-        var marker = 
-          new GMarker(
-            new GLatLng(
-              <%= camera.lat %>, 
-              <%= camera.lng %>
-            )
-          );
+        markers[<%= camera.id %>] = {
+          'camera_name': '<%= camera.name %>',
+          'gMarker': new GMarker( new GLatLng( <%= camera.lat %>, <%= camera.lng %> ) ),
+          'activated': <%= params[:autoactivation] == 'true' ? 'true' : 'false' %>
+        };
         
-        map.addOverlay(marker);
+        // GEvent.addListener(markers[<%= camera.id %>].gMarker, "mouseover", function() {
+        //   var myHtml = "<b><%= camera.name %></b>";
+        //   map.openInfoWindowHtml(markers[<%= camera.id %>].gMarker.getLatLng(), myHtml);
+        // });
         
-        markers[<%= camera.id %>] = marker;
+        GEvent.addListener(markers[<%= camera.id %>].gMarker, "click", function() {
+          // adding widget or scrolling to widget
+          if( markers[<%= camera.id %>].activated ){
+            
+            $.scrollTo( 
+              '#widget_<%= camera.id %>', 
+              800,
+              { onAfter: function(){alert("hightlight!");} }
+            );
+            
+          } else {
+            addWidget( <%= camera.id %>, '<%= widget_camera_path( camera ) %>' );
+            markers[<%= camera.id %>].activated = true;
+          }
+        });
+        
+        map.addOverlay(markers[<%= camera.id %>].gMarker);
       <% end %>
+      /* The Markers END */
     
       var customUI = map.getDefaultUI();
       // Remove MapType.G_HYBRID_MAP
@@ -127,7 +116,7 @@
   }
 
   function setMapCenter( camera_id, address ){
-    map.panTo( markers[camera_id].getLatLng() );
+    map.panTo( markers[camera_id].gMarker.getLatLng() );
     $('#search_address').attr( 'value', address );
   }
   
@@ -144,6 +133,20 @@
         }
       );
     }
+  }
+  
+  function addWidget( camera_id, request_path ){
+    $.get(request_path, function(data) {
+      $('#widgets').prepend( data );
+    });
+  }
+  
+  function removeWidget( camera_id ){
+    $('#widgets').fadeOut('slow', function() {
+      $(this).remove();
+    });
+
+    markers[camera_id].actived = false;
   }
 
   $(document).ready(function() {

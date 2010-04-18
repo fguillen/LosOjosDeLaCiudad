@@ -24,92 +24,9 @@
   <div id="results">      
     <div class="cont">
       
-        <div class="webcam wcs_small">
-          <div class="header">
-            <h2><%= @camera.name %></h2>
-            <div class="tools">
-              <a href="#" title="Arrastrar"><img src="/images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
-              <a href="#" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
-              <a href="#" title="Cerrar cámara"><img src="/images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
-            </div>
-          </div>
-          <div class="image">
-            <% if !@camera.histories.empty? %>
-              <%= image_tag @camera.histories.last.image.url(:small) %>
-            <% else %>
-              <%= image_tag '/images/not_image_camera_small.jpg' %>
-            <% end %>
-          </div>
-          <div class="controls">
-            <div class="play">
-          
-              <a href="#" id="pause_cam_ID"><img src="/images/ico_pause.png" width="12" height="17" alt="Reproducir"></a>
-            </div>
-            <div class="slider"></div>
-            <div class="info_update">
-              últ act: hace 7 minutos
-            </div>
-          </div>
-        </div>
-      
-        <div class="webcam wcs_medium">
-          <div class="header">
-            <h2><%= @camera.name %></h2>
-            <div class="tools">
-              <a href="#" title="Arrastrar"><img src="/images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
-              <a href="#" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
-              <a href="#" title="Cerrar cámara"><img src="/images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
-            </div>
-          </div>
-          <div class="image">
-            <% if !@camera.histories.empty? %>
-              <%= image_tag @camera.histories.last.image.url(:medium) %>
-            <% else %>
-              <%= image_tag '/images/not_image_camera_medium.jpg' %>
-            <% end %>        
-          </div>
-          <div class="controls">
-            <div class="play">
-            
-              <a href="#" id="pause_cam_ID"><img src="/images/ico_pause.png" width="12" height="17" alt="Reproducir"></a>
-            </div>
-            <div class="slider"></div>
-            <div class="info_update">
-              últ act: hace 7 minutos
-            </div>
-          </div>
-        </div>
-        
-        <div class="webcam wcs_large">
-          <div class="header">
-            <h2><%= @camera.name %></h2>
-            <div class="tools">
-              <a href="#" title="Arrastrar"><img src="/images/ico_move.png" width="13" height="13" alt="Arrastrar"></a>
-              <a href="#" title="Centrar en mapa"><img src="/images/ico_center.png" width="12" height="12" alt="Centrar en el mapa"></a>
-              <a href="#" title="Cerrar cámara"><img src="/images/ico_close.png" width="13" height="12" alt="Cerra cámara"></a>
-            </div>
-          </div>
-          <div class="image">
-            <% if !@camera.histories.empty? %>
-              <%= image_tag @camera.histories.last.image.url(:large) %>
-            <% else %>
-              <%= image_tag '/images/not_image_camera_large.jpg' %>
-            <% end %>
-          </div>
-          <div class="controls">
-            <div class="play">
-            
-              <a href="#" id="pause_cam_ID"><img src="/images/ico_pause.png" width="12" height="17" alt="Reproducir"></a>
-            </div>
-            <div class="slider"></div>
-            <div class="info_update">
-              últ act: hace 7 minutos
-            </div>
-          </div>
-        </div>
-      
-
-        
+      <%= render :partial => 'widget', :locals => { :camera => @camera, :size => 'small' } %>
+      <%= render :partial => 'widget', :locals => { :camera => @camera, :size => 'medium' } %>
+      <%= render :partial => 'widget', :locals => { :camera => @camera, :size => 'large' } %>
       
     </div><!-- .cont -->
   </div><!-- #results -->
