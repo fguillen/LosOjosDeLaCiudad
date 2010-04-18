@@ -142,7 +142,7 @@
   }
   
   function removeWidget( camera_id ){
-    $('#widgets').fadeOut('slow', function() {
+    $('#widget_' + camera_id).fadeOut('slow', function() {
       $(this).remove();
     });
 
