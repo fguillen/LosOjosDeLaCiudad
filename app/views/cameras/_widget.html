@@ -24,7 +24,7 @@
     <div id="slider_<%= camera.id %>" class="slider"></div>
     <div class="info_update">
       <% if !camera.histories.empty? %>
-        <%= camera.histories.last.date %>
+        <%= (camera.histories.last.date + 2.hours).strftime( '%d %b %H:%M' ) %>
       <% else %>
         Ninguna imagen
       <% end %>
