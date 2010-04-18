@@ -98,7 +98,7 @@
       /* The Markers */
       <% @cameras.geolocalized.each do |camera| %>
         markers[<%= camera.id %>] = {
-          'camera_name': '<%= camera.name %>',
+          'camera_name': "<%= camera.name %>",
           'gMarker': new GMarker( new GLatLng( <%= camera.lat %>, <%= camera.lng %> ), <%= (params[:autoactivation] == 'true' && admin?) ? 'camera_actived_icon' : 'camera_deactived_icon' %>),
           'activated': <%= (params[:autoactivation] == 'true' && admin?) ? 'true' : 'false' %>
         };
