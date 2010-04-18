@@ -148,6 +148,14 @@
 
     markers[camera_id].activated = false;
   }
+  
+  function chargeSnapshot( camera_id, request_path ){
+    $.getJSON(request_path, function(data) {
+      $('#widget_' + camera_id + ' .image img').attr( 'src', data.image_url );
+      $('#widget_' + camera_id + ' .info_update').html( data.datetime );
+    });
+  }
+  
 
   $(document).ready(function() {
     initialize();

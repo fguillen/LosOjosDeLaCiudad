@@ -12,7 +12,7 @@
     <% if !camera.histories.empty? %>
       <%= image_tag camera.histories.last.image.url(size.to_sym) %>
     <% else %>
-      <%= image_tag "/images/not_image_camera_#{size}.jpg" %>
+      <%= image_tag "/images/not_image_#{size}.jpg" %>
     <% end %>
   </div>
   <div class="controls">
@@ -27,6 +27,16 @@
       <% else %>
         Ninguna imagen
       <% end %>
+    </div>
+    <div class="timeline">
+      <% (0..95).each do |num| %>
+        <a href="javascript:chargeSnapshot( <%= camera.id %>, '<%= snapshot_camera_path( camera, :datetime => ((num*30).minutes.ago.strftime("%Y%m%d%H%m")), :size => size ) %>' )">
+          <%= image_tag( '/images/timeline_point.gif' ) %>
+        </a>
+      <% end %>
+      <a href="javascript:chargeSnapshot( <%= camera.id %>, '<%= snapshot_camera_path( camera, :size => size ) %>' )">
+        <%= image_tag( '/images/timeline_point.gif' ) %>
+      </a>
     </div>
     <div class="admin">
       <%= link_to 'edit', edit_camera_path( camera ) %>

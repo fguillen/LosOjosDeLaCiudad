@@ -54,4 +54,20 @@ class CamerasController < ApplicationController
     
     render :partial => 'widget', :locals => {:camera => @camera, :size => 'medium'}
   end
+  
+  def snapshot
+    @camera = Camera.find(params[:id])
+    
+    if !params[:datetime].blank?
+      @history = History.snapshot( @camera, params[:datetime] )
+    else
+      @history = @camera.histories.first( :order => 'date desc' )
+    end
+    
+    if @history.nil?
+      render :json => { :image_url => "/images/not_image_#{params[:size]}.jpg", :datetime => Time.parse(params[:datetime]).strftime( "%Y/%M/%d %H:%m" ) }
+    else
+      render :json => { :image_url => @history.image.url(params[:size].to_sym), :datetime => @history.date.strftime( "%Y/%M/%d %H:%m" ) }
+    end
+  end
 end

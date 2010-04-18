@@ -20,4 +20,9 @@ class History < ActiveRecord::Base
     :url => "/paperclip/cameras/:camera_id/histories/:id/:style/:basename.:extension"
   )
   
+  
+  def self.snapshot( camera, date_in_compres_format )
+    camera.histories.find(:first, :conditions => ["date <= ?", Time.parse( date_in_compres_format )], :order => 'date desc')
+  end
+  
 end
