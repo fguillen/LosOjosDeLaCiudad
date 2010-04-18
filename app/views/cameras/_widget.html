@@ -21,7 +21,7 @@
       <a href="javascript:playCamera( <%= camera.id %>, '<%= size %>' )" id="play_cam_<%= camera.id %>"><img src="/images/ico_play.png" width="12" height="17" alt="Reproducir"></a>
       <a style="display:none" href="javascript:pauseCamera( <%= camera.id %>, '<%= size %>' )" id="pause_cam_<%= camera.id %>"><img src="/images/ico_pause.png" width="12" height="17" alt="Pausar"></a>
     </div>
-    <div class="slider"></div>
+    <div id="slider_<%= camera.id %>" class="slider"></div>
     <div class="info_update">
       <% if !camera.histories.empty? %>
         <%= camera.histories.last.date %>
@@ -29,20 +29,24 @@
         Ninguna imagen
       <% end %>
     </div>
-    <div class="timeline">
-      <%= text_field_tag 'actualdatetime', 'actual', :id => "actualdatetime_#{camera.id}" %>
-      <% (0..95).to_a.reverse.each do |num| %>
-        <a href="javascript:pauseCamera( <%= camera.id %> ); chargeSnapshot( <%= camera.id %>, <%= (num*30).minutes.ago.strftime("%Y%m%d%H%M") %>, '<%= size %>' );">
-          <%= image_tag( '/images/timeline_point.gif' ) %>
-        </a>
-      <% end %>
-      <a href="javascript:chargeSnapshot( <%= camera.id %>, null, '<%= size %>' )">
-        <%= image_tag( '/images/timeline_point.gif' ) %>
-      </a>
-    </div>
     <div class="admin">
       <%= link_to 'edit', edit_camera_path( camera ) %>
     </div>
   </div>
 </div>
 </li>
+
+<script>
+  $(function() {
+    $("#slider_<%= camera.id %>").slider({
+      value:99,
+      min: 0,
+      max: 99,
+      step: 1,
+      stop: function(event, ui) {
+        pauseCamera( <%= camera.id %> );
+        chargeSnapshot( <%= camera.id %>, ui.value, '<%= size %>' );
+      }
+    });
+  });
+</script>

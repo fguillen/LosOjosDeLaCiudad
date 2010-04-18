@@ -1,0 +1,7 @@
+/*#panel-contents{position:relative;height:40px;}
+#small-label{ background:url(images/small_label.gif) no-repeat; height:4px; width:17px; overflow:hidden;float:left; }
+#large-label{ background:url(images/large_label.gif) no-repeat; height:18px; width:17px; overflow:hidden;float:left; }
+#slider-bar{ background:url(images/slider.gif) no-repeat; height:4px; width:100px; position:relative; float:left;}
+#slider-handle{ background:url(images/slider_handle.gif) no-repeat; height:12px; width:13px; overflow:hidden;position:absolute;z-index:1;}
+#slider-bubble{ background:url(images/callout.gif) no-repeat; height:46px; width:38px; overflow:hidden; position:absolute; top:-50px;padding:8px 0 0 0;text-align:center;font-weight:bold;color:#202020; }
+*/

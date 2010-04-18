@@ -29,13 +29,13 @@
   <div id="results">      
     <div class="cont">
       <p><%= @cameras.size %> cámaras.</p>
-      <p>
+      <!-- <p>
         Tamaño imagen: 
         <a href="#">pequeño</a>
         <a href="#">mediano</a>
         <a href="#">grande</a>
       </p>
-      
+       -->
       <ul id="widgets">
         <% if params[:autoactivation] == 'true' %>
           <% @cameras.each do |camera| %>
@@ -61,6 +61,14 @@
   var map = null;
   var markers = new Array();
   var videos = new Array();
+  var timelineSteps = new Array();
+  
+  function initializeDatetimeSteps(){
+    <% (0..98).to_a.reverse.each_with_index do |num, index| %>
+      timelineSteps[<%= index %>] = '<%= (num*30).minutes.ago.strftime("%Y%m%d%H%M") %>';
+    <% end %>
+    timelineSteps[99] = 'actual';
+  }
 
   function initialize() {
     if (GBrowserIsCompatible()) {
@@ -157,14 +165,10 @@
     markers[camera_id].activated = false;
   }
   
-  function chargeSnapshot( camera_id, datetime, size ){
-    $('#actualdatetime_' + camera_id).val( datetime );
+  function chargeSnapshot( camera_id, datetimeStep, size ){
+    $("#slider_" + camera_id).slider( "value" , datetimeStep );
     
-    if( !datetime ){
-      datetime = 'actual';
-    }
-    
-    request_path = "/cameras/" + camera_id + "/snapshots/" + datetime + "/" + size;
+    request_path = "/cameras/" + camera_id + "/snapshots/" + timelineSteps[datetimeStep] + "/" + size;
     
     $.getJSON(request_path, function(data) {
       $('#widget_' + camera_id + ' .image img').attr( 'src', data.image_url );
@@ -172,10 +176,10 @@
     });
   }
   
-  function playCamera( camera_id, size, actualdatetime ){
-    if( !actualdatetime ){
+  function playCamera( camera_id, size, datetimeStep ){
+    if( !datetimeStep ){
       pauseCamera( camera_id );
-      actualdatetime = $('#actualdatetime_' + camera_id).val();
+      datetimeStep = $("#slider_" + camera_id).slider( "value" );
       
       $('#play_cam_' + camera_id).fadeOut('slow', function() {
         $('#pause_cam_' + camera_id).fadeIn('slow');
@@ -184,33 +188,15 @@
     
     var timeout = 2000;
     
-    if( actualdatetime != 'actual'){
-      year = actualdatetime.substr(0,4);
-      month = actualdatetime.substr(4,2);
-      day = actualdatetime.substr(6,2);
-      hour = actualdatetime.substr(8,2);
-      minute = actualdatetime.substr(10,2);
-    
-      date = new Date( year, parseInt(month) - 1, day, hour, minute );
-      milliseconds = date.getTime();
-      date_more_30_minutes = new Date( milliseconds + 1800000 );
-    
-      actualdatetime = date_more_30_minutes.format( 'yyyymmddHHMM' );
-    
-      // "dddd, mmmm dS, yyyy, h:MM:ss TT");
-      // 
-      //   date_more_30_minutes.getFullYear() + '' + 
-      //   date_more_30_minutes.getMonth() +
-      //   date_more_30_minutes.getDate() +
-      //   date_more_30_minutes.getHours() +
-      //   date_more_30_minutes.getMinutes();
+    if( timelineSteps[datetimeStep] == 'actual'){
+      timeout = 300000;
     } else {
-      timeout = 300000; // 5 minutes
+      datetimeStep ++;
     }
       
-    chargeSnapshot( camera_id, actualdatetime, size );
+    chargeSnapshot( camera_id, datetimeStep, size );
     
-    videos[camera_id] = window.setTimeout(playCamera, timeout, camera_id, size, actualdatetime );
+    videos[camera_id] = window.setTimeout(playCamera, timeout, camera_id, size, datetimeStep );
   }
   
   function pauseCamera( camera_id ){
@@ -233,6 +219,7 @@
     // http://www.wil-linssen.com/musings/entry/extending-the-jquery-sortable-with-ajax-mysql/
     $("#widgets").sortable({ handle : '.handle' }); 
     
+    initializeDatetimeSteps();
 
   });
 
