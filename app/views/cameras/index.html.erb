@@ -30,7 +30,7 @@
       </p>
        -->
       <ul id="widgets">
-        <% if params[:autoactivation] == 'true' %>
+        <% if params[:autoactivation] == 'true' && admin? %>
           <% @cameras.each do |camera| %>
             <%= render :partial => 'widget', :locals => { :camera => camera, :size => 'medium' } %>
           <% end %>
@@ -87,7 +87,7 @@
         markers[<%= camera.id %>] = {
           'camera_name': '<%= camera.name %>',
           'gMarker': new GMarker( new GLatLng( <%= camera.lat %>, <%= camera.lng %> ) ),
-          'activated': <%= params[:autoactivation] == 'true' ? 'true' : 'false' %>
+          'activated': <%= (params[:autoactivation] == 'true' && admin?) ? 'true' : 'false' %>
         };
         
         // GEvent.addListener(markers[<%= camera.id %>].gMarker, "mouseover", function() {

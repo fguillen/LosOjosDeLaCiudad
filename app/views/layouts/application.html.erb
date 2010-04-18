@@ -15,12 +15,17 @@
 </head>
 <body>
   <div id="container">
+    <% if admin? %>
+      <p><%= link_to 'Salir', logout_path %></p>
+    <% end %>
+    
     <%= yield %>
   </div>
   
   <div style="clear:both"></div>
   
   <div id="footer">
+    <% if admin? %>
     <ul>
       <li><%= link_to 'Todas las cámaras geolocalizadas', cameras_path %></li>
       <li><%= link_to 'Todas las cámaras geolocalizadas activadas automáticamente', cameras_path( :autoactivation => 'true') %></li>
@@ -28,6 +33,7 @@
       <li><%= link_to 'Cámaras de Madrid no geolocalizadas activadas automáticamente', cameras_path( :geolocalized => 'false', :autoactivation => 'true', :city => 'Madrid' ) %></li>
       <li><%= link_to 'Cámaras de Barcelona no geolocalizadas activadas automáticamente', cameras_path( :geolocalized => 'false', :autoactivation => 'true', :city => 'Barcelona' ) %></li>
     </ul>
+    <% end %>
   </div>
 </body>
 </html>

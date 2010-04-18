@@ -1,4 +1,6 @@
 class CamerasController < ApplicationController
+  before_filter :require_admin, :except => [:index, :widget, :snapshot]
+  
   def index
     opts = {:geolocalized => 'true'}.merge( params.symbolize_keys() )
     @cameras = Camera.filter( opts )
@@ -43,10 +45,6 @@ class CamerasController < ApplicationController
     @camera.destroy
     flash[:notice] = "Successfully destroyed camera."
     redirect_to cameras_url
-  end
-  
-  def geoposition
-    @camera = Camera.find(params[:id])
   end
   
   def widget

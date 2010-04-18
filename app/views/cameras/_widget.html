@@ -29,9 +29,11 @@
         Ninguna imagen
       <% end %>
     </div>
+    <% if admin? %>
     <div class="admin">
       <%= link_to 'edit', edit_camera_path( camera ) %>
     </div>
+    <% end %>
   </div>
 </div>
 </li>

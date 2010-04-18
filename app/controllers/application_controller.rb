@@ -7,4 +7,20 @@ class ApplicationController < ActionController::Base
 
   # Scrub sensitive parameters from your log
   # filter_parameter_logging :password
+  
+  filter_parameter_logging :password
+  helper_method :admin?
+  
+  private
+    def require_admin
+      puts "require_admin, session[:admin].nil?: #{session[:admin].nil?}"
+      unless session[:admin]
+        redirect_to cameras_path
+        return false
+      end
+    end
+    
+    def admin?
+      return( !session[:admin].nil? )
+    end
 end

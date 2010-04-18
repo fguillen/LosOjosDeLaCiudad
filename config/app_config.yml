@@ -7,6 +7,7 @@ development:
   google_api_key: 'ABQIAAAAlqHVgda1Vyq8JQWd9v1BVRTZe2NynXf9TfusV2EJKPopn2_KfxQ2OFHVA5G6E08qVGyjqI6Ga6221A'
   default_lat: 40.4166909
   default_lng: -3.7003454
+  password: wadus
 
 test:
   domain: test.host
@@ -17,7 +18,8 @@ test:
   google_api_key: 'ABQIAAAAlqHVgda1Vyq8JQWd9v1BVRTZe2NynXf9TfusV2EJKPopn2_KfxQ2OFHVA5G6E08qVGyjqI6Ga6221A'
   default_lat: 40.4166909
   default_lng: -3.7003454
-
+  password: wadus
+  
 production:
   domain: example.com
   paperclip_identify_path: /usr/bin/
@@ -27,4 +29,4 @@ production:
   google_api_key: 'ABQIAAAAlqHVgda1Vyq8JQWd9v1BVRTZe2NynXf9TfusV2EJKPopn2_KfxQ2OFHVA5G6E08qVGyjqI6Ga6221A'
   default_lat: 40.4166909
   default_lng: -3.7003454
-
+  password: wadus

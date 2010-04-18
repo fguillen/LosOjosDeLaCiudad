@@ -24,6 +24,8 @@ class CamerasControllerTest < ActionController::TestCase
   end
   
   def test_index_filtering_by_not_geolocalized_and_autoactivation
+    session[:admin] = true;
+    
     5.times{ Factory(:camera) }
     3.times{ Factory(:camera, :lat => 10, :lng => 10)}
     camera = Factory(:camera)
@@ -42,16 +44,22 @@ class CamerasControllerTest < ActionController::TestCase
   end
   
   def test_show
+    session[:admin] = true;
+    
     get :show, :id => Factory(:camera)
     assert_template 'show'
   end
   
   def test_new
+    session[:admin] = true;
+    
     get :new
     assert_template 'new'
   end
   
   def test_create_invalid
+    session[:admin] = true;
+    
     Camera.any_instance.stubs(:valid?).returns(false)
     post :create
     
@@ -60,6 +68,8 @@ class CamerasControllerTest < ActionController::TestCase
   end
   
   def test_create_valid
+    session[:admin] = true;
+    
     assert_difference "Camera.count", 1 do
       post(
         :create,
@@ -75,11 +85,15 @@ class CamerasControllerTest < ActionController::TestCase
   end
   
   def test_edit
+    session[:admin] = true;
+    
     get :edit, :id => Factory(:camera)
     assert_template 'edit'
   end
   
   def test_update_invalid
+    session[:admin] = true;
+    
     camera = Factory(:camera)
     Camera.any_instance.stubs(:valid?).returns(false)
     put :update, :id => camera
@@ -89,6 +103,8 @@ class CamerasControllerTest < ActionController::TestCase
   end
   
   def test_update_valid
+    session[:admin] = true;
+    
     camera = Factory(:camera)
     
     put(
@@ -109,6 +125,8 @@ class CamerasControllerTest < ActionController::TestCase
   end
   
   def test_destroy
+    session[:admin] = true;
+    
     camera = Factory(:camera)
     2.times { Factory(:history, :camera => camera) }
     
