@@ -12,9 +12,7 @@ class History < ActiveRecord::Base
       :large =>     ["320x240",   :jpg] 
     },
     :convert_options => { 
-      :small =>   '-quality 60',
-      :medium =>  '-quality 60',
-      :large =>   '-quality 60',
+      :all => '-quality 60 -strip'
     },
     :path => ":rails_root/public/paperclip/cameras/:camera_id/histories/:id/:style/:basename.:extension",
     :url => "/paperclip/cameras/:camera_id/histories/:id/:style/:basename.:extension"
@@ -25,4 +23,20 @@ class History < ActiveRecord::Base
     camera.histories.find(:first, :conditions => ["date <= ?", Time.parse( date_in_compres_format )], :order => 'date desc')
   end
   
+  
+  def self.cleaner_days_ago( days_ago )
+    puts "XXX: cleaning histories #{days_ago} days ago."
+    
+    histories_to_clean = 
+      History.find(
+        :all, 
+        :conditions => ["date <= ?", days_ago.days.ago]
+      )
+    
+    histories_to_clean.each do |history|
+      history.destroy
+    end
+    
+    puts "XXX: #{histories_to_clean.size} histories destroyed"
+  end
 end

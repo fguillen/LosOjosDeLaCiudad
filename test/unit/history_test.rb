@@ -15,4 +15,37 @@ class HistoryTest < ActiveSupport::TestCase
     assert_equal( history_201001010301, History.snapshot( camera, '201101010301' ) )
     assert_equal( history_201001010101, History.snapshot( camera, '201001010131' ) )
   end
+  
+  def test_when_delete_delete_the_file_too
+    camera = Factory(:camera)
+    history = 
+      History.create!(
+        :camera => camera,
+        :image => File.open( "#{RAILS_ROOT}/test/fixtures/webcam_image.jpg", 'r' ),
+        :date => Time.now
+      )
+      
+    image_path = history.image.path
+    
+    assert( File.exists?( image_path ) )
+    
+    history.destroy
+    
+    assert( !File.exists?( image_path ) )
+  end
+  
+  def test_cleaner_days_ago
+    camera = Factory(:camera)
+    history_1_day_ago = Factory(:history, :date => 1.days.ago, :camera => camera)
+    history_2_day_ago = Factory(:history, :date => 2.days.ago, :camera => camera)
+    history_3_day_ago = Factory(:history, :date => 3.days.ago, :camera => camera)
+    
+    assert_difference "History.count", -2 do
+      History.cleaner_days_ago( 2 )
+    end
+    
+    assert History.exists?(history_1_day_ago.id)
+    assert !History.exists?(history_2_day_ago.id)
+    assert !History.exists?(history_3_day_ago.id)
+  end
 end

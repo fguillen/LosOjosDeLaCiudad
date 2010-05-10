@@ -24,4 +24,11 @@ namespace :city_eyes do
     CityEyes::CSVDigester.digest_all
     puts "All CSVs Digested"
   end
+  
+  desc "Remove old Histories"
+  task :remove_old_histories => :environment do
+    puts "(#{Time.now}) Removing old Histories"
+    History.cleaner_days_ago( 3 )
+    puts "All old Histories removed"
+  end
 end
