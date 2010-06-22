@@ -28,7 +28,7 @@ namespace :city_eyes do
   desc "Remove old Histories"
   task :remove_old_histories => :environment do
     puts "(#{Time.now}) Removing old Histories"
-    History.cleaner_days_ago( 2 )
+    History.cleaner_days_ago( 1 )
     puts "All old Histories removed"
   end
 end
