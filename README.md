@@ -11,6 +11,15 @@ The web site allows you to select as many cameras you want and play the animatio
 
   Camera icon from: http://www.iconspedia.com/icon/camera-13-15.html
   
+## Online
+
+[los Ojos de la Ciudad](http://losojosdelaciudad.com)
+
+
+## Video
+
+[Functional documentation on video format (es)](http://blip.tv/file/3521010/)
+
 
 ## Developing
 
