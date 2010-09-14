@@ -36,7 +36,10 @@ body { margin: 0; padding: 0; font: 82.5% Arial;}
 #results h2 { margin: 0; font: normal .85em "Trebuchet MS", Arial; background: #4A260D; padding: 2px; color: #FFF;}
 #results .header { position: relative;}
 #results .header .tools { position: absolute; top: 2px; right: 3px;}
-#results .webcam { /*float: left; margin: 0 30px 30px 0;*/}
+#results .webcam { 
+  background: #CADAD9;
+  padding: 10px;
+}
 #results li { float: left; margin: 0 30px 30px 0; list-style-type: none; padding: 0;}
 #results ul { margin: 0; padding: 0;}
 
@@ -47,7 +50,31 @@ body { margin: 0; padding: 0; font: 82.5% Arial;}
 #results .wcs_medium { width: 240px; }
 #results .wcs_large { width: 320px; }
 
-#results .webcam .controls { /*border: 1px solid red; */ position: relative; height: 20px; }
+#results .webcam .controls { 
+  position: relative; height: 20px;
+}
 #results .controls .play { float: left; width: 25px; position: absolute; top: 1px; left: 5px;}
 #results .controls .slider { height: 17px; border: 1px solid #999; margin: 4px  0 0 25px ;  }
-#results .controls .info_update { margin: 4px 0 0 0 ; text-align: right; color: #A9A9A9; font: .75em Arial;}
+#results .info_update { 
+  margin: 4px 0 0 0 ; 
+  text-align: right; 
+  color: #585C5B; 
+  font: .75em Arial;
+}
+
+#footer {
+  background: #E3ECEB;
+  padding: 10px;
+}
+
+#footer a{
+  background: #CADAD9;
+  color: #585C5B;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#footer a:hover{
+  text-decoration: underline;
+}
+

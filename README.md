@@ -1,30 +1,30 @@
-Los Ojos de la Ciudad
-======================
+# Los Ojos de la Ciudad
 
-Proyecto para AbreDatos.es
+Project for the [AbreDatos contests](http://abredatos.es).
 
-BD
-=====================
-    mysql>
+A background process is keeping the snapshots of the government webcams on public places.
+
+The web site allows you to select as many cameras you want and play the animation from the past to the present.
     
-    create database ojosciudad_test DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-    create database ojosciudad_development DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-    create database ojosciudad DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-    grant all privileges on ojosciudad_test.* to ojosciudad@localhost identified by 'ojosciudad';
-    grant all privileges on ojosciudad_development.* to ojosciudad@localhost identified by 'ojosciudad';
-    grant all privileges on ojosciudad.* to ojosciudad@localhost identified by 'ojosciudad';
+    
+## Grettings
 
+  Camera icon from: http://www.iconspedia.com/icon/camera-13-15.html
+  
 
-Tasks
-======================
+## Developing
+
+### Tasks
     rake city_eyes:csv_generation
     rake city_eyes:csv_digest  
     rake city_eyes:dustpan
     
-    
-Grettings
-==================
-  Camera icon from: http://www.iconspedia.com/icon/camera-13-15.html
+  
+## Credits
+
+Author: [Fernando Guillen](http://fernandoguillen.info) & [Alvaro Ortiz](http://furilo.com)
+Copyright: Copyright (c) 2010 Fernando Guillen & Alvaro Ortiz
+License: Released under the MIT license.
 
     
 
