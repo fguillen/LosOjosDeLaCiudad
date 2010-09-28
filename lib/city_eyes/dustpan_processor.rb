@@ -5,7 +5,7 @@ module CityEyes
   class DustpanProcessor
     def self.pick_images
 
-      Camera.all.each do |camera|        
+      Camera.geolocalized.each do |camera|        
         puts "XXX: processing camera: #{camera.name}, #{camera.city}"
         
         begin
