@@ -20,7 +20,7 @@ Rails::Initializer.run do |config|
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "geokit"
-  config.gem "scrapi"
+  config.gem "scrapi", :version => '1.2.0'
   config.gem "factory_girl", :source => "http://gemcutter.org"
   config.gem 'paperclip', :source => 'http://gemcutter.org'
   config.gem "htmlentities"
