@@ -10,6 +10,7 @@ gem "scrapi", '1.2.0'
 gem 'paperclip'
 gem "htmlentities"
 gem 'jrails'
+gem 'cocaine'
 
 group :test do
   gem 'factory_girl'

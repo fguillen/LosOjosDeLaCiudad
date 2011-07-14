@@ -43,6 +43,7 @@ PLATFORMS
 
 DEPENDENCIES
   authlogic
+  cocaine
   factory_girl
   geokit
   htmlentities
