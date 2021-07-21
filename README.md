@@ -13,7 +13,7 @@ The web site allows you to select as many cameras you want and play the animatio
   
 ## Video
 
-[Functional documentation on video format (es)](https://www.youtube.com/watch?v=cFRvRtA-gtU&t=125s&ab_channel=FG)
+[Functional documentation on video format (es)](https://www.youtube.com/watch?v=cFRvRtA-gtU)
 
 
 ## Developing
