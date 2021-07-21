@@ -11,14 +11,9 @@ The web site allows you to select as many cameras you want and play the animatio
 
   Camera icon from: http://www.iconspedia.com/icon/camera-13-15.html
   
-## Online
-
-[los Ojos de la Ciudad](http://losojosdelaciudad.com)
-
-
 ## Video
 
-[Functional documentation on video format (es)](http://blip.tv/file/3521010/)
+[Functional documentation on video format (es)](https://www.youtube.com/watch?v=cFRvRtA-gtU&t=125s&ab_channel=FG)
 
 
 ## Developing
@@ -31,7 +26,7 @@ The web site allows you to select as many cameras you want and play the animatio
   
 ## Credits
 
-Author: [Fernando Guillen](http://fernandoguillen.info) & [Alvaro Ortiz](http://furilo.com)
+Author: [Fernando Guillen](https://fernandoguillen.info) & [Alvaro Ortiz](http://furilo.com)
 Copyright: Copyright (c) 2010 Fernando Guillen & Alvaro Ortiz
 License: Released under the MIT license.
 
